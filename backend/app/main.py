@@ -305,7 +305,7 @@ def retry_analysis(ticket_id: int, staff=Depends(current_staff), db=Depends(get_
     ticket.revision += 1
     ticket.content_revision += 1
     ticket.updated_at = now()
-    schedule_analysis(db, ticket)
+    schedule_analysis(db, ticket, allow_auto=False)
     audit(db, ticket.id, staff.name, "Запрошен повторный разбор")
     db.commit()
     return ticket_dict(db, ticket, detail=True)
@@ -400,6 +400,7 @@ def system(staff=Depends(current_staff), db=Depends(get_db)):
         "ai_provider": settings().ai_provider,
         "telegram_configured": bool(settings().telegram_bot_token),
         "demo_enabled": settings().demo_enabled,
+        "auto_reply_enabled": settings().auto_reply_enabled,
         "profile_verification": "unavailable",
         "servers": sorted(servers),
         "failed_jobs": db.scalar(
@@ -422,7 +423,9 @@ def demo_ticket(data: DemoIn, staff=Depends(admin_staff), db=Depends(get_db)):
     profile = Profile(player_id=player.id, server=data.server, nickname=data.nickname)
     db.add(profile)
     db.flush()
-    ticket = create_ticket(db, player, profile, data.text, data.category, demo=True)
+    ticket = create_ticket(
+        db, player, profile, data.text, data.category, demo=True, intake=data.intake
+    )
     db.commit()
     return ticket_dict(db, ticket, detail=True)
 

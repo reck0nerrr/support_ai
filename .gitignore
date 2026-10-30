@@ -9,3 +9,4 @@ frontend/dist/
 .taste-skill/inspect/
 playwright-report/
 test-results/
+.taste-skill/

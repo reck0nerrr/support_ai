@@ -10,6 +10,7 @@ export type System = {
   ai_provider: string;
   telegram_configured: boolean;
   demo_enabled: boolean;
+  auto_reply_enabled: boolean;
   profile_verification: string;
   servers: string[];
   failed_jobs: number | null;
@@ -42,12 +43,14 @@ export type Analysis = {
     escalation_reasons: string[];
     draft: string;
     rule_ids: string[];
+    routing?: { mode: 'automatic' | 'human'; reason: string };
   };
   sources: Source[];
 };
 export type Ticket = {
   id: number;
   title: string;
+  intake: 'chat' | 'complaint';
   category: string;
   status: string;
   priority: string;
@@ -106,4 +109,5 @@ export const delivery: Record<string, string> = {
   failed: 'Не доставлено',
   uncertain: 'Доставка не подтверждена. Проверьте Telegram перед новой отправкой.',
   demo: 'Демо · сохранено без отправки',
+  cancelled: 'Автоответ отменён: появились новые данные или подключился сотрудник',
 };

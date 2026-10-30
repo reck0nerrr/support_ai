@@ -23,12 +23,16 @@ def enqueue(db, kind, payload, key=None):
     return job
 
 
-def schedule_analysis(db, ticket):
+def schedule_analysis(db, ticket, allow_auto=True):
     ticket.status = "analyzing"
     enqueue(
         db,
         "analyze",
-        {"ticket_id": ticket.id, "revision": ticket.content_revision},
+        {
+            "ticket_id": ticket.id,
+            "revision": ticket.content_revision,
+            "allow_auto": allow_auto,
+        },
         f"analysis:{ticket.id}:{ticket.content_revision}",
     )
 
@@ -42,6 +46,7 @@ def create_ticket(
     parent_id=None,
     demo=False,
     attachments=None,
+    intake="complaint",
 ):
     ticket = Ticket(
         player_id=player.id,
@@ -50,6 +55,7 @@ def create_ticket(
         category=category,
         parent_id=parent_id,
         demo=demo,
+        intake=intake,
     )
     db.add(ticket)
     db.flush()
@@ -102,6 +108,7 @@ def ticket_dict(db, ticket, detail=False):
     result = {
         "id": ticket.id,
         "title": ticket.title,
+        "intake": ticket.intake,
         "category": ticket.category,
         "status": ticket.status,
         "priority": ticket.priority,

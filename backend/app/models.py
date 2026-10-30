@@ -75,6 +75,7 @@ class Ticket(Base):
     profile_id: Mapped[str | None] = mapped_column(ForeignKey("profiles.id"))
     parent_id: Mapped[int | None] = mapped_column(ForeignKey("tickets.id"))
     title: Mapped[str] = mapped_column(String(160))
+    intake: Mapped[str] = mapped_column(String(20), default="complaint")
     category: Mapped[str] = mapped_column(String(30), default="other", index=True)
     status: Mapped[str] = mapped_column(String(30), default="new", index=True)
     priority: Mapped[str] = mapped_column(String(20), default="normal")

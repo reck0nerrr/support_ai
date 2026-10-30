@@ -1869,3 +1869,14 @@ label select {
   text-decoration: underline;
   padding: 6px 0;
 }
+.message-assistant {
+  background: #f0f5f4;
+  border-color: #e1eae7;
+}
+.auto-review {
+  border-left: 2px solid #b5d2c0;
+  padding-left: 10px;
+}
+.auto-review h4 {
+  color: #285c3d;
+}

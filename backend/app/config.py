@@ -4,10 +4,12 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
+    model_config = SettingsConfigDict(
+        env_file=".env", extra="ignore", env_ignore_empty=True
+    )
     database_url: str = "postgresql+psycopg://copilot:copilot@localhost:5432/copilot"
     environment: str = "development"
-    public_origin: str = "http://localhost:5173"
+    public_origin: str = "http://localhost:8080"
     cookie_secure: bool = False
     session_hours: int = 12
     telegram_bot_token: str = ""
@@ -16,6 +18,7 @@ class Settings(BaseSettings):
     openai_api_key: str = ""
     openai_model: str = ""
     demo_enabled: bool = False
+    auto_reply_enabled: bool = True
 
     @model_validator(mode="after")
     def validate_configuration(self):

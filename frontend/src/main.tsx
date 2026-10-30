@@ -273,9 +273,9 @@ function App() {
           <div className="human-policy">
             <ShieldCheck size={17} />
             <p>
-              Решение — за человеком.
+              Спорные решения — команде.
               <br />
-              <span>AI помогает с разбором.</span>
+              <span>Простые вопросы — Copilot.</span>
             </p>
           </div>
           <div className="staff-row">
@@ -771,9 +771,11 @@ function TicketDetail({
                       <strong>
                         {m.author === 'player'
                           ? ticket.profile?.nickname || ticket.player.name
-                          : m.author === 'note'
-                            ? 'Внутренний комментарий'
-                            : 'Поддержка'}
+                          : m.author === 'assistant'
+                            ? 'Support Copilot · автоответ'
+                            : m.author === 'note'
+                              ? 'Внутренний комментарий'
+                              : 'Поддержка'}
                       </strong>
                       <time>{date(m.created_at)}</time>
                     </header>
@@ -888,7 +890,9 @@ function TicketDetail({
         </div>
         <aside className="analysis-column">
           <div className="analysis-title">
-            <div className="ai-symbol">✳</div>
+            <div className="ai-symbol">
+              <MessageSquare size={18} />
+            </div>
             <h3>Support Copilot</h3>
             <span className="badge">
               {analysis?.provider === 'openai' ? 'AI' : 'Локальный режим'}
@@ -1001,6 +1005,13 @@ function TicketDetail({
                     <h4>Суть обращения</h4>
                     <p>{analysis.result.summary}</p>
                   </section>
+                  {analysis.result.routing?.mode === 'human' &&
+                    !analysis.result.escalation_reasons.length && (
+                      <section className="human-review">
+                        <h4>Нужен сотрудник</h4>
+                        <p>{analysis.result.routing.reason}</p>
+                      </section>
+                    )}
                   <section>
                     <h4>Со слов игрока</h4>
                     <ul>
@@ -1029,17 +1040,31 @@ function TicketDetail({
                       ))}
                     </ul>
                   </section>
-                  <section className="human-review">
-                    <h4>
-                      <UserRound size={14} />
-                      Нужен сотрудник
-                    </h4>
-                    <ul>
-                      {analysis.result.escalation_reasons.map((v, i) => (
-                        <li key={i}>{v}</li>
-                      ))}
-                    </ul>
-                  </section>
+                  {analysis.result.routing?.mode === 'automatic' && (
+                    <section className="auto-review">
+                      <h4>
+                        <Check size={14} />
+                        Автоматический ответ
+                      </h4>
+                      <p>{analysis.result.routing.reason}</p>
+                      <p className="muted">
+                        Ответ сохранён в переписке вместе со статусом доставки.
+                      </p>
+                    </section>
+                  )}
+                  {!!analysis.result.escalation_reasons.length && (
+                    <section className="human-review">
+                      <h4>
+                        <UserRound size={14} />
+                        Нужен сотрудник
+                      </h4>
+                      <ul>
+                        {analysis.result.escalation_reasons.map((v, i) => (
+                          <li key={i}>{v}</li>
+                        ))}
+                      </ul>
+                    </section>
+                  )}
                   <section>
                     <h4>
                       Источники <span>{analysis.sources.length}</span>
@@ -1226,6 +1251,13 @@ function DemoModal({
                 {v}
               </option>
             ))}
+          </select>
+        </label>
+        <label>
+          Тип обращения
+          <select name="intake">
+            <option value="complaint">Жалоба · проверяет сотрудник</option>
+            <option value="chat">Вопрос · автоответ разрешён</option>
           </select>
         </label>
         <label>
@@ -1430,6 +1462,11 @@ function SystemPage({ system }: { system: System | null }) {
               <strong>
                 {system.ai_provider === 'openai' ? 'OpenAI подключён' : 'Локальный режим'}
               </strong>
+              <p>
+                {system.auto_reply_enabled && system.ai_provider === 'openai'
+                  ? 'Простые вопросы и безобидные реплики: автоответы включены.'
+                  : 'Автоответы не выполняются; обращения проверяет сотрудник.'}
+              </p>
               <p>
                 {system.ai_provider === 'openai'
                   ? 'Разбор обращений выполняется внешней моделью.'

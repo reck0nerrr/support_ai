@@ -1,2 +1,2 @@
--r requirements.txt
-pytest>=8,<10
+-r requirements.lock
+pytest==8.3.5

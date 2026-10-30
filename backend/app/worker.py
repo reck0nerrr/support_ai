@@ -6,10 +6,11 @@ from datetime import timedelta
 import httpx
 from sqlalchemy import select
 from .ai import analyze
+from .auto_reply import eligibility
 from .config import settings
 from .db import session_factory
-from .models import Analysis, Job, Message, Ticket, now
-from .services import audit
+from .models import Analysis, Job, Message, Player, Ticket, now
+from .services import audit, enqueue
 
 log = logging.getLogger("copilot.worker")
 
@@ -31,6 +32,8 @@ def recover_stale(db):
             message = db.get(Message, job.payload["message_id"])
             if message:
                 message.delivery = "uncertain"
+            if job.payload.get("automatic"):
+                db.get(Ticket, job.payload["ticket_id"]).status = "review"
 
 
 def claim():
@@ -70,6 +73,18 @@ def process(job_id):
                     )
                     job = db.get(Job, job_id)
                     if ticket.content_revision == job.payload["revision"]:
+                        automatic, reason = eligibility(db, ticket, result)
+                        if ticket.revision != before_revision or not job.payload.get(
+                            "allow_auto", False
+                        ):
+                            automatic, reason = (
+                                False,
+                                "Сотрудник изменил обращение или запросил ручной разбор",
+                            )
+                        result["routing"] = {
+                            "mode": "automatic" if automatic else "human",
+                            "reason": reason,
+                        }
                         db.add(
                             Analysis(
                                 ticket_id=ticket.id,
@@ -83,15 +98,68 @@ def process(job_id):
                         if ticket.revision == before_revision:
                             ticket.category = result["category"]
                         ticket.revision += 1
+                        if automatic:
+                            reply = Message(
+                                ticket_id=ticket.id,
+                                author="assistant",
+                                text=result["draft"],
+                                delivery="demo" if ticket.demo else "queued",
+                                request_key=f"auto-{ticket.id}-{ticket.content_revision}",
+                            )
+                            db.add(reply)
+                            db.flush()
+                            if not ticket.demo:
+                                player = db.get(Player, ticket.player_id)
+                                enqueue(
+                                    db,
+                                    "telegram",
+                                    {
+                                        "ticket_id": ticket.id,
+                                        "message_id": reply.id,
+                                        "chat_id": player.telegram_id,
+                                        "text": f"Support Copilot · #{ticket.id}\n\n{reply.text}",
+                                        "automatic": True,
+                                        "content_revision": ticket.content_revision,
+                                        "ticket_revision": ticket.revision,
+                                    },
+                                    f"send:{reply.id}",
+                                )
+                            ticket.status = "resolved" if ticket.demo else "in_progress"
+                            audit(
+                                db,
+                                ticket.id,
+                                "Support Copilot",
+                                "Подготовлен и сохранён автоматический ответ: "
+                                + reason,
+                            )
+                        else:
+                            audit(
+                                db,
+                                ticket.id,
+                                "Support Copilot",
+                                "Разбор подготовлен; требуется проверка сотрудником",
+                            )
+                job.state = "done"
+            elif job.kind == "telegram":
+                payload = job.payload
+                if payload.get("automatic"):
+                    ticket = db.get(Ticket, payload["ticket_id"])
+                    if (
+                        ticket.content_revision != payload["content_revision"]
+                        or ticket.revision
+                        != payload.get("ticket_revision", ticket.revision)
+                        or ticket.assignee_id
+                    ):
+                        job.state = "cancelled"
+                        db.get(Message, payload["message_id"]).delivery = "cancelled"
                         audit(
                             db,
                             ticket.id,
                             "Support Copilot",
-                            "Разбор подготовлен; требуется проверка сотрудником",
+                            "Автоответ отменён: появились новые данные или подключился сотрудник",
                         )
-                job.state = "done"
-            elif job.kind == "telegram":
-                payload = job.payload
+                        db.commit()
+                        return
                 if not settings().telegram_bot_token:
                     raise TelegramNotConfigured()
                 # Telegram sendMessage has no idempotency key. Retry only explicit retryable rejections.
@@ -112,6 +180,18 @@ def process(job_id):
                         message.delivery = "sent"
                         message.telegram_message_id = body["result"]["message_id"]
                         audit(db, payload["ticket_id"], "Telegram", "Ответ доставлен")
+                        if payload.get("automatic"):
+                            ticket = db.scalar(
+                                select(Ticket)
+                                .where(Ticket.id == payload["ticket_id"])
+                                .with_for_update()
+                            )
+                            if (
+                                ticket.content_revision == payload["content_revision"]
+                                and not ticket.assignee_id
+                            ):
+                                ticket.status = "resolved"
+                                ticket.revision += 1
                 elif response.status_code == 429:
                     job.state = "pending"
                     job.available_at = now() + timedelta(
@@ -124,6 +204,8 @@ def process(job_id):
                     job.state, job.error = "failed", "telegram_rejected"
                     if payload.get("message_id"):
                         db.get(Message, payload["message_id"]).delivery = "failed"
+                    if payload.get("automatic"):
+                        db.get(Ticket, payload["ticket_id"]).status = "review"
             else:
                 raise ValueError("unknown_job")
             db.commit()
@@ -149,6 +231,8 @@ def process(job_id):
                 )
                 if job.payload.get("message_id"):
                     db.get(Message, job.payload["message_id"]).delivery = job.state
+                if job.payload.get("automatic"):
+                    db.get(Ticket, job.payload["ticket_id"]).status = "review"
             else:
                 job.state = "failed" if job.attempts >= 3 else "pending"
                 job.available_at = now() + timedelta(seconds=15 * job.attempts)

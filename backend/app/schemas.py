@@ -42,6 +42,7 @@ class DemoIn(BaseModel):
     text: str = Field(min_length=10, max_length=10000)
     category: Category = "player"
     language: Literal["ru", "en"] = "ru"
+    intake: Literal["complaint", "chat"] = "complaint"
 
 
 class RuleIn(BaseModel):
@@ -66,3 +67,6 @@ class AIResult(BaseModel):
     escalation_reasons: list[str]
     rule_ids: list[str]
     draft: str
+    intent: Literal["complaint", "faq", "smalltalk", "nonsense"] = "complaint"
+    auto_reply_safe: bool = False
+    requires_account_access: bool = True

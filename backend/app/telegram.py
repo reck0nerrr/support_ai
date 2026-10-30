@@ -16,6 +16,7 @@ CATEGORIES = {
 }
 HELP = (
     "Support Copilot · Grand Mobile\n\n"
+    "Напишите вопрос обычным сообщением. На простые вопросы Copilot может ответить сам; сложные передаст сотруднику. Переписка сохраняется.\n\n"
     "/profile сервер | Nick_Name — добавить или выбрать персонажа (без проверки владения)\n"
     "/profiles — мои персонажи\n/new — новое обращение\n/tickets — мои обращения\n"
     "/ticket номер — история\n/reply номер текст — дополнить обращение\n"
@@ -138,6 +139,12 @@ def handle_update(db, update):
                 )
                 db.add(profile)
                 db.flush()
+            if state.profile_id != profile.id:
+                state.data = {
+                    key: value
+                    for key, value in state.data.items()
+                    if key != "chat_ticket"
+                }
             state.profile_id = profile.id
             tell(
                 db,
@@ -209,7 +216,7 @@ def handle_update(db, update):
                 select(Message)
                 .where(
                     Message.ticket_id == ticket.id,
-                    Message.author.in_(["player", "staff"]),
+                    Message.author.in_(["player", "staff", "assistant"]),
                 )
                 .order_by(Message.created_at.desc())
                 .limit(8)
@@ -311,6 +318,30 @@ def handle_update(db, update):
             chat,
             f"Обращение #{ticket.id} принято. Его проверит сотрудник.\n/reply {ticket.id} текст — дополнить\n/tickets — статус",
         )
+    elif state.step == "idle" and not text.startswith("/") and (text or files):
+        profile = db.get(Profile, state.profile_id) if state.profile_id else None
+        previous = state.data.get("chat_ticket")
+        ticket = (
+            db.scalar(
+                select(Ticket)
+                .where(Ticket.id == previous, Ticket.player_id == player.id)
+                .with_for_update()
+            )
+            if previous
+            else None
+        )
+        if ticket and ticket.intake == "chat" and ticket.status not in {"closed"}:
+            player_message(db, ticket, text or "Материалы к вопросу", files)
+        else:
+            ticket = create_ticket(
+                db,
+                player,
+                profile,
+                text or "Материалы к вопросу",
+                attachments=files,
+                intake="chat",
+            )
+        state.data = {"chat_ticket": ticket.id}
     else:
         tell(
             db,
