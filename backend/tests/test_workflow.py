@@ -203,6 +203,42 @@ def bot_send(number, text, user=12345, **extra):
         return handle_update(db, update(number, text, user, **extra))
 
 
+def test_photo_reply_hands_off_without_llm(admin, complaint, monkeypatch):
+    monkeypatch.setenv("AI_PROVIDER", "openai")
+    monkeypatch.setenv("OPENAI_API_KEY", "never-use-this-key")
+    settings.cache_clear()
+    with session_factory()() as db, db.begin():
+        ticket = db.get(Ticket, complaint["id"])
+        db.get(Player, ticket.player_id).telegram_id = 12345
+    bot_send(
+        700,
+        f"/reply {complaint['id']}",
+        photo=[{"file_id": "test-photo", "file_size": 100}],
+    )
+    with patch("app.engine.httpx.Client") as provider:
+        with session_factory()() as db:
+            result, _ = ai.analyze(db, db.get(Ticket, complaint["id"]))
+        provider.assert_not_called()
+    assert result["needs_human"] and not result["auto_reply_safe"]
+    assert result["telemetry"]["cost_usd"] == 0
+    assert result["telemetry"]["routing_mode"] == "human_attachments"
+    assert result["triage"]["extracted"]["has_evidence"]
+    with session_factory()() as db:
+        acknowledgements = [
+            j.payload.get("text", "")
+            for j in db.scalars(select(Job).where(Job.kind == "telegram"))
+        ]
+        assert any("Вложения доступны сотруднику" in text for text in acknowledgements)
+
+
+def test_idle_photo_is_acknowledged_and_saved():
+    bot_send(701, "", photo=[{"file_id": "test-photo", "file_size": 100}])
+    with session_factory()() as db:
+        assert db.scalar(select(Attachment)).file_id == "test-photo"
+        ack = db.scalar(select(Job).where(Job.kind == "telegram"))
+        assert "сохранены в CRM" in ack.payload["text"]
+
+
 def test_bot_full_dialog_deduplication_and_private_history():
     for number, text in enumerate(
         [
@@ -345,17 +381,15 @@ def test_model_references_are_validated(admin, complaint, monkeypatch):
     settings.cache_clear()
     import json
 
-    result = {
-        "language": "ru",
-        "category": "player",
-        "summary": "Требуется проверка",
-        "claims": ["Обман"],
-        "verified_facts": ["Выдуманный факт"],
-        "missing": [],
-        "escalation_reasons": ["Проверить"],
-        "rule_ids": ["invented"],
-        "draft": "Здравствуйте",
-    }
+    from app.contract import ContractRequest
+    from app.engine import base_decision
+
+    result = base_decision(
+        ContractRequest(
+            kind="complaint", messages=[{"role": "player", "text": "Обман при обмене"}]
+        )
+    ).model_dump()
+    result["draft_reply"].update(text="Здравствуйте [invented]", cited=["invented"])
     response = httpx.Response(
         200,
         json={

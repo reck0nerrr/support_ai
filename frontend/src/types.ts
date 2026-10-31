@@ -44,6 +44,7 @@ export type Analysis = {
     draft: string;
     rule_ids: string[];
     routing?: { mode: 'automatic' | 'human'; reason: string };
+    triage?: { category: string; priority: string; confidence: number; extracted: { nickname: string | null; has_evidence: boolean; rule_refs: string[] } };
   };
   sources: Source[];
 };
@@ -93,6 +94,25 @@ export const categories: Record<string, string> = {
   payment: 'Платёж',
   technical: 'Техническая проблема',
   other: 'Другое',
+};
+export const contractCategories: Record<string, string> = {
+  'complaint.insult': 'Оскорбления', 'complaint.cheat': 'Читы',
+  'complaint.dm': 'DM и нарушение РП', 'complaint.scam': 'Мошенничество',
+  'complaint.rmt_ads': 'RMT и реклама', 'complaint.admin': 'Жалоба на администратора',
+  'complaint.other': 'Другое нарушение', 'complaint.invalid': 'Неполная жалоба',
+  'report.question': 'Вопрос об игре', 'report.help': 'Помощь и баги',
+  'report.complaint': 'Жалоба через репорт', 'report.account': 'Аккаунт',
+  'report.payment': 'Платёж', 'report.offtopic': 'Оффтоп',
+};
+export const aiErrors: Record<string, string> = {
+  provider_http_429: 'OpenAI ограничил запросы; проверьте квоту и лимиты проекта',
+  provider_daily_quota_exhausted: 'Исчерпан дневной лимит OpenAI',
+  provider_billing_quota_exhausted: 'Исчерпана квота или лимит расходов OpenAI',
+  handout_not_loaded: 'Импортируйте архив организаторов и перезапустите сервис',
+  provider_http_401: 'OpenAI отклонил API-ключ',
+  provider_timeout: 'OpenAI не ответил вовремя',
+  unsafe_draft_claim: 'Черновик отклонён: неподтверждённое действие или обещание',
+  unknown_rule_reference: 'Черновик отклонён: неизвестный пункт правил',
 };
 export const statuses: Record<string, string> = {
   new: 'Новое',

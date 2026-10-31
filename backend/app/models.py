@@ -7,6 +7,7 @@ from sqlalchemy import (
     ForeignKey,
     Integer,
     JSON,
+    Numeric,
     String,
     Text,
     UniqueConstraint,
@@ -173,3 +174,35 @@ class BotState(Base):
     profile_id: Mapped[str | None] = mapped_column(ForeignKey("profiles.id"))
     step: Mapped[str] = mapped_column(String(30), default="idle")
     data: Mapped[dict] = mapped_column(JSON, default=dict)
+
+
+class TriageRun(Base):
+    __tablename__ = "triage_runs"
+    id: Mapped[str] = mapped_column(String(32), primary_key=True, default=uid)
+    request_key: Mapped[str] = mapped_column(String(160), index=True)
+    run_id: Mapped[str] = mapped_column(String(80), index=True)
+    ticket_id: Mapped[int | None] = mapped_column(ForeignKey("tickets.id"), index=True)
+    source: Mapped[str] = mapped_column(String(20), index=True)
+    provider: Mapped[str] = mapped_column(String(20), index=True)
+    model: Mapped[str] = mapped_column(String(100))
+    language: Mapped[str] = mapped_column(String(12), index=True)
+    category: Mapped[str] = mapped_column(String(30))
+    needs_human: Mapped[bool] = mapped_column(Boolean)
+    status: Mapped[str] = mapped_column(String(20))
+    latency_ms: Mapped[int] = mapped_column(Integer)
+    cost_usd: Mapped[float | None] = mapped_column(Numeric(18, 10))
+    input: Mapped[dict] = mapped_column(JSON)
+    output: Mapped[dict] = mapped_column(JSON)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), default=now, index=True
+    )
+
+
+class EvaluationRun(Base):
+    __tablename__ = "evaluation_runs"
+    id: Mapped[str] = mapped_column(String(32), primary_key=True, default=uid)
+    name: Mapped[str] = mapped_column(String(200))
+    report: Mapped[dict] = mapped_column(JSON)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), default=now, index=True
+    )

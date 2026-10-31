@@ -25,6 +25,8 @@ services:
     env_file: .env
     environment:
       DATABASE_URL: postgresql+psycopg://copilot:${POSTGRES_PASSWORD:-copilot}@db:5432/copilot
+      HANDOUT_DIR: /data/handout
+    volumes: ["./private/handout:/data/handout:ro"]
     depends_on:
       migrate: {condition: service_completed_successfully}
     restart: unless-stopped
@@ -33,6 +35,8 @@ services:
     env_file: .env
     environment:
       DATABASE_URL: postgresql+psycopg://copilot:${POSTGRES_PASSWORD:-copilot}@db:5432/copilot
+      HANDOUT_DIR: /data/handout
+    volumes: ["./private/handout:/data/handout:ro"]
     command: [python, -m, app.worker]
     depends_on:
       migrate: {condition: service_completed_successfully}
@@ -43,6 +47,8 @@ services:
     env_file: .env
     environment:
       DATABASE_URL: postgresql+psycopg://copilot:${POSTGRES_PASSWORD:-copilot}@db:5432/copilot
+      HANDOUT_DIR: /data/handout
+    volumes: ["./private/handout:/data/handout:ro"]
     command: [python, -m, app.polling]
     depends_on:
       migrate: {condition: service_completed_successfully}

@@ -14,8 +14,17 @@ def main():
     if not token:
         raise SystemExit("Set TELEGRAM_BOT_TOKEN")
     with httpx.Client(timeout=40) as client:
-        info = client.get(f"https://api.telegram.org/bot{token}/getWebhookInfo").json()
-        if not info.get("ok") or info["result"].get("url"):
+        try:
+            info = client.get(
+                f"https://api.telegram.org/bot{token}/getWebhookInfo"
+            ).json()
+        except (httpx.HTTPError, ValueError):
+            raise SystemExit("Telegram connection failed; retry later") from None
+        if not info.get("ok"):
+            raise SystemExit(
+                "Telegram rejected the bot token; check TELEGRAM_BOT_TOKEN"
+            )
+        if info["result"].get("url"):
             raise SystemExit(
                 "Polling unavailable: inspect/remove the existing webhook first"
             )

@@ -1,0 +1,213 @@
+{
+  "$defs": {
+    "PlayerMessage": {
+      "additionalProperties": false,
+      "properties": {
+        "role": {
+          "enum": [
+            "player",
+            "reported_player"
+          ],
+          "title": "Role",
+          "type": "string"
+        },
+        "text": {
+          "maxLength": 24000,
+          "title": "Text",
+          "type": "string"
+        },
+        "attachments": {
+          "default": 0,
+          "maximum": 100,
+          "minimum": 0,
+          "title": "Attachments",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "role",
+        "text"
+      ],
+      "title": "PlayerMessage",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "kind": {
+      "enum": [
+        "complaint",
+        "report"
+      ],
+      "title": "Kind",
+      "type": "string"
+    },
+    "messages": {
+      "items": {
+        "$ref": "#/$defs/PlayerMessage"
+      },
+      "maxItems": 40,
+      "minItems": 1,
+      "title": "Messages",
+      "type": "array"
+    },
+    "ticket_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Ticket Id"
+    },
+    "created_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Created At"
+    },
+    "region": {
+      "anyOf": [
+        {
+          "maxLength": 40,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Region"
+    },
+    "server_lang": {
+      "anyOf": [
+        {
+          "maxLength": 12,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Server Lang"
+    },
+    "lang": {
+      "anyOf": [
+        {
+          "maxLength": 12,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Lang"
+    },
+    "reporter_hash": {
+      "anyOf": [
+        {
+          "maxLength": 160,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Reporter Hash"
+    },
+    "reported_hash": {
+      "anyOf": [
+        {
+          "maxLength": 160,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Reported Hash"
+    },
+    "reported_nick": {
+      "anyOf": [
+        {
+          "maxLength": 100,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Reported Nick"
+    },
+    "rule_refs_raw": {
+      "default": "",
+      "maxLength": 1000,
+      "title": "Rule Refs Raw",
+      "type": "string"
+    },
+    "images_count": {
+      "default": 0,
+      "maximum": 100,
+      "minimum": 0,
+      "title": "Images Count",
+      "type": "integer"
+    },
+    "server": {
+      "anyOf": [
+        {
+          "maxLength": 100,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Server"
+    },
+    "reply_language": {
+      "anyOf": [
+        {
+          "enum": [
+            "ru",
+            "kk",
+            "uz",
+            "en",
+            "es",
+            "pt"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Reply Language"
+    }
+  },
+  "required": [
+    "kind",
+    "messages"
+  ],
+  "title": "ContractRequest",
+  "type": "object"
+}

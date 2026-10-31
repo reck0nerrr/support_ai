@@ -4,6 +4,7 @@ import {
   ArrowLeft,
   ArrowUpRight,
   BookOpen,
+  BarChart3,
   Check,
   ChevronLeft,
   ChevronRight,
@@ -28,7 +29,8 @@ import '@fontsource/ibm-plex-sans/500.css';
 import '@fontsource/ibm-plex-sans/600.css';
 import './styles.css';
 import { api, setCsrf } from './api';
-import { Auth, Rule, Staff, System, Ticket, categories, delivery, statuses } from './types';
+import { Auth, Rule, Staff, System, Ticket, categories, contractCategories, aiErrors, delivery, statuses } from './types';
+import MetricsPage from './MetricsPage';
 
 const date = (value: string) =>
   new Date(
@@ -260,6 +262,15 @@ function App() {
             </button>
           ))}
           <p className="nav-label second">Материалы и настройки</p>
+          {auth.staff.role === 'admin' && (
+            <button
+              className={view === 'metrics' ? 'active' : ''}
+              onClick={() => navigate('metrics')}
+            >
+              <BarChart3 size={17} />
+              Качество и стоимость
+            </button>
+          )}
           <button className={view === 'rules' ? 'active' : ''} onClick={() => navigate('rules')}>
             <BookOpen size={17} />
             База правил
@@ -270,14 +281,6 @@ function App() {
           </button>
         </nav>
         <div className="sidebar-bottom">
-          <div className="human-policy">
-            <ShieldCheck size={17} />
-            <p>
-              Спорные решения — команде.
-              <br />
-              <span>Простые вопросы — Copilot.</span>
-            </p>
-          </div>
           <div className="staff-row">
             <span className="avatar">{auth.staff.name[0]}</span>
             <div>
@@ -315,7 +318,9 @@ function App() {
         </header>
         <main className="sheet">
           {logoutError && <ErrorBox text={logoutError} retry={() => setLogoutError('')} />}{' '}
-          {view === 'rules' ? (
+          {view === 'metrics' ? (
+            <MetricsPage defaultProvider={system?.ai_provider || 'offline'} />
+          ) : view === 'rules' ? (
             <RulesPage admin={auth.staff.role === 'admin'} />
           ) : view === 'system' ? (
             <SystemPage system={system} />
@@ -345,9 +350,6 @@ function App() {
             </>
           )}
         </main>
-        <footer className="app-footer">
-          Support Copilot <span>Контекст. Правила. Взвешенные решения.</span>
-        </footer>
       </div>
       {showDemo && (
         <DemoModal
@@ -1005,6 +1007,13 @@ function TicketDetail({
                     <h4>Суть обращения</h4>
                     <p>{analysis.result.summary}</p>
                   </section>
+                  {analysis.result.triage && (
+                    <section>
+                      <h4>Категория и приоритет</h4>
+                      <p>{contractCategories[analysis.result.triage.category] || analysis.result.triage.category} · {analysis.result.triage.priority.toUpperCase()}</p>
+                      <p className="muted">Заявленный ник: {analysis.result.triage.extracted.nickname || 'не указан'} · вложения: {analysis.result.triage.extracted.has_evidence ? 'есть, не просмотрены' : 'нет'}</p>
+                    </section>
+                  )}
                   {analysis.result.routing?.mode === 'human' &&
                     !analysis.result.escalation_reasons.length && (
                       <section className="human-review">
@@ -1070,11 +1079,11 @@ function TicketDetail({
                       Источники <span>{analysis.sources.length}</span>
                     </h4>
                     {analysis.sources.length ? (
-                      analysis.sources.map((s) => (
+                      analysis.sources.map((s) => s.url ? (
                         <a
                           key={s.id}
                           className="source"
-                          href={s.url}
+                          href={s.url || undefined}
                           target="_blank"
                           rel="noreferrer"
                         >
@@ -1089,8 +1098,13 @@ function TicketDetail({
                                 : ' · для проверки'}
                             </small>
                           </span>
-                          <ArrowUpRight size={14} />
+                          {s.url && <ArrowUpRight size={14} />}
                         </a>
+                      ) : (
+                        <details key={s.id}>
+                          <summary className="source"><BookOpen size={15} /><span>{s.clause ? `${s.clause} · ` : ''}{s.title}<small>Редакция {s.version}</small></span></summary>
+                          <p className="source-text">{s.text}</p>
+                        </details>
                       ))
                     ) : (
                       <p className="muted">Подходящих правил нет в утверждённой базе.</p>
@@ -1128,7 +1142,7 @@ function TicketDetail({
                 ?.filter((j) => j.state === 'failed' || j.state === 'uncertain')
                 .map((j) => (
                   <p key={j.id} className="job-error">
-                    {j.kind === 'analyze' ? 'Ошибка AI' : 'Ошибка доставки'} · {j.error}
+                    {j.kind === 'analyze' ? 'Ошибка AI' : 'Ошибка доставки'} · {aiErrors[j.error || ""] || j.error}
                   </p>
                 ))}
             </div>
@@ -1265,6 +1279,8 @@ function DemoModal({
           <select name="language">
             <option value="ru">Русский</option>
             <option value="en">English</option>
+            <option value="kk">Қазақша</option>
+            <option value="uz">O‘zbekcha</option>
           </select>
         </label>
         <label>

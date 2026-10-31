@@ -1,6 +1,7 @@
 """Run separately: python -m app.worker. PostgreSQL SKIP LOCKED supports multiple workers."""
 
 import logging
+import re
 import time
 from datetime import timedelta
 import httpx
@@ -11,8 +12,11 @@ from .config import settings
 from .db import session_factory
 from .models import Analysis, Job, Message, Player, Ticket, now
 from .services import audit, enqueue
+from .triage import TriageFailure
 
 log = logging.getLogger("copilot.worker")
+# Telegram Bot API URLs contain the bot token. httpx logs the full URL at INFO.
+logging.getLogger("httpx").setLevel(logging.WARNING)
 
 
 class TelegramNotConfigured(Exception):
@@ -97,6 +101,12 @@ def process(job_id):
                         ticket.status = "review"
                         if ticket.revision == before_revision:
                             ticket.category = result["category"]
+                            if result.get("triage"):
+                                ticket.priority = (
+                                    "high"
+                                    if result["triage"]["priority"] in {"p0", "p1"}
+                                    else "normal"
+                                )
                         ticket.revision += 1
                         if automatic:
                             reply = Message(
@@ -216,6 +226,10 @@ def process(job_id):
                 return
             # Never persist/log exception strings: HTTP exceptions can contain bot/API tokens.
             job.error = type(exc).__name__
+            if isinstance(exc, TriageFailure) and re.fullmatch(
+                r"[a-z0-9_]{1,90}", str(exc)
+            ):
+                job.error = str(exc)
             if job.kind == "telegram":
                 job.state = (
                     "failed"
@@ -234,8 +248,52 @@ def process(job_id):
                 if job.payload.get("automatic"):
                     db.get(Ticket, job.payload["ticket_id"]).status = "review"
             else:
-                job.state = "failed" if job.attempts >= 3 else "pending"
-                job.available_at = now() + timedelta(seconds=15 * job.attempts)
+                provider_error = (
+                    exc.provider_error if isinstance(exc, TriageFailure) else {}
+                )
+                error_code = provider_error.get("code")
+                quota_exhausted = isinstance(exc, TriageFailure) and (
+                    provider_error.get("limit_scope") == "day"
+                    or provider_error.get("type") == "insufficient_quota"
+                    or error_code
+                    in {
+                        "insufficient_quota",
+                        "credit_balance_exhausted",
+                        "organization_spend_limit_exceeded",
+                        "project_spend_limit_exceeded",
+                        "organization_usage_limit_exceeded",
+                    }
+                )
+                if quota_exhausted:
+                    job.error = (
+                        "provider_daily_quota_exhausted"
+                        if provider_error.get("limit_scope") == "day"
+                        else "provider_billing_quota_exhausted"
+                    )
+                invalid_output = isinstance(exc, TriageFailure) and str(exc) in {
+                    "invalid_model_response",
+                    "incomplete_model_response",
+                    "empty_or_refused_response",
+                    "wrong_category_kind",
+                    "wrong_reply_language",
+                    "unknown_rule_reference",
+                    "missing_draft_reference",
+                    "unsupported_clause",
+                    "model_provided_url",
+                    "unsafe_draft_claim",
+                    "handout_not_loaded",
+                }
+                job.state = (
+                    "failed"
+                    if quota_exhausted or invalid_output or job.attempts >= 3
+                    else "pending"
+                )
+                delay = (
+                    exc.retry_after_seconds if isinstance(exc, TriageFailure) else None
+                )
+                job.available_at = now() + timedelta(
+                    seconds=max(delay or 0, 15 * job.attempts)
+                )
                 if job.state == "failed":
                     ticket = db.get(Ticket, job.payload["ticket_id"])
                     if ticket and ticket.content_revision == job.payload["revision"]:

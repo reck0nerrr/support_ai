@@ -1,0 +1,277 @@
+{
+  "kind": "synthetic",
+  "author": "developer-authored, not independently reviewed",
+  "purpose": "development regression only; translated siblings share a family",
+  "rows": [
+    {
+      "id": "trade-ru",
+      "family": "trade",
+      "synthetic": true
+    },
+    {
+      "id": "trade-kk",
+      "family": "trade",
+      "synthetic": true
+    },
+    {
+      "id": "trade-uz",
+      "family": "trade",
+      "synthetic": true
+    },
+    {
+      "id": "dm-ru",
+      "family": "dm",
+      "synthetic": true
+    },
+    {
+      "id": "dm-kk",
+      "family": "dm",
+      "synthetic": true
+    },
+    {
+      "id": "dm-uz",
+      "family": "dm",
+      "synthetic": true
+    },
+    {
+      "id": "admin-ru",
+      "family": "admin",
+      "synthetic": true
+    },
+    {
+      "id": "admin-kk",
+      "family": "admin",
+      "synthetic": true
+    },
+    {
+      "id": "admin-uz",
+      "family": "admin",
+      "synthetic": true
+    },
+    {
+      "id": "appeal-ru",
+      "family": "appeal",
+      "synthetic": true
+    },
+    {
+      "id": "appeal-kk",
+      "family": "appeal",
+      "synthetic": true
+    },
+    {
+      "id": "appeal-uz",
+      "family": "appeal",
+      "synthetic": true
+    },
+    {
+      "id": "recovery-ru",
+      "family": "recovery",
+      "synthetic": true
+    },
+    {
+      "id": "recovery-kk",
+      "family": "recovery",
+      "synthetic": true
+    },
+    {
+      "id": "recovery-uz",
+      "family": "recovery",
+      "synthetic": true
+    },
+    {
+      "id": "payment-ru",
+      "family": "payment",
+      "synthetic": true
+    },
+    {
+      "id": "payment-kk",
+      "family": "payment",
+      "synthetic": true
+    },
+    {
+      "id": "payment-uz",
+      "family": "payment",
+      "synthetic": true
+    },
+    {
+      "id": "crash-ru",
+      "family": "crash",
+      "synthetic": true
+    },
+    {
+      "id": "crash-kk",
+      "family": "crash",
+      "synthetic": true
+    },
+    {
+      "id": "crash-uz",
+      "family": "crash",
+      "synthetic": true
+    },
+    {
+      "id": "rp-ru",
+      "family": "rp",
+      "synthetic": true
+    },
+    {
+      "id": "rp-kk",
+      "family": "rp",
+      "synthetic": true
+    },
+    {
+      "id": "rp-uz",
+      "family": "rp",
+      "synthetic": true
+    },
+    {
+      "id": "file-complaint-ru",
+      "family": "file-complaint",
+      "synthetic": true
+    },
+    {
+      "id": "file-complaint-kk",
+      "family": "file-complaint",
+      "synthetic": true
+    },
+    {
+      "id": "file-complaint-uz",
+      "family": "file-complaint",
+      "synthetic": true
+    },
+    {
+      "id": "greeting-ru",
+      "family": "greeting",
+      "synthetic": true
+    },
+    {
+      "id": "greeting-kk",
+      "family": "greeting",
+      "synthetic": true
+    },
+    {
+      "id": "greeting-uz",
+      "family": "greeting",
+      "synthetic": true
+    },
+    {
+      "id": "nonsense-ru",
+      "family": "nonsense",
+      "synthetic": true
+    },
+    {
+      "id": "nonsense-kk",
+      "family": "nonsense",
+      "synthetic": true
+    },
+    {
+      "id": "nonsense-uz",
+      "family": "nonsense",
+      "synthetic": true
+    },
+    {
+      "id": "unknown-gameplay-ru",
+      "family": "unknown-gameplay",
+      "synthetic": true
+    },
+    {
+      "id": "unknown-gameplay-kk",
+      "family": "unknown-gameplay",
+      "synthetic": true
+    },
+    {
+      "id": "unknown-gameplay-uz",
+      "family": "unknown-gameplay",
+      "synthetic": true
+    },
+    {
+      "id": "mg-ru",
+      "family": "mg",
+      "synthetic": true
+    },
+    {
+      "id": "mg-kk",
+      "family": "mg",
+      "synthetic": true
+    },
+    {
+      "id": "mg-uz",
+      "family": "mg",
+      "synthetic": true
+    },
+    {
+      "id": "macros-ru",
+      "family": "macros",
+      "synthetic": true
+    },
+    {
+      "id": "macros-kk",
+      "family": "macros",
+      "synthetic": true
+    },
+    {
+      "id": "macros-uz",
+      "family": "macros",
+      "synthetic": true
+    },
+    {
+      "id": "delete-ru",
+      "family": "delete",
+      "synthetic": true
+    },
+    {
+      "id": "delete-kk",
+      "family": "delete",
+      "synthetic": true
+    },
+    {
+      "id": "delete-uz",
+      "family": "delete",
+      "synthetic": true
+    },
+    {
+      "id": "uz-cyr-recovery",
+      "family": "uz-cyr-recovery",
+      "synthetic": true
+    },
+    {
+      "id": "uz-cyr-rp",
+      "family": "uz-cyr-rp",
+      "synthetic": true
+    },
+    {
+      "id": "uz-cyr-payment",
+      "family": "uz-cyr-payment",
+      "synthetic": true
+    },
+    {
+      "id": "mixed-kk-appeal",
+      "family": "mixed-kk-appeal",
+      "synthetic": true
+    },
+    {
+      "id": "mixed-uz-recovery",
+      "family": "mixed-uz-recovery",
+      "synthetic": true
+    },
+    {
+      "id": "mixed-ru-technical",
+      "family": "mixed-ru-technical",
+      "synthetic": true
+    },
+    {
+      "id": "inject-player",
+      "family": "inject-player",
+      "synthetic": true
+    },
+    {
+      "id": "inject-rule",
+      "family": "inject-rule",
+      "synthetic": true
+    },
+    {
+      "id": "inject-uz",
+      "family": "inject-uz",
+      "synthetic": true
+    }
+  ]
+}

@@ -1,0 +1,1029 @@
+{
+  "schema_version": "1.0",
+  "name": "Support Copilot · evaluation",
+  "created_at": "2026-10-30T17:07:02.538139+00:00",
+  "dataset_kind": "synthetic",
+  "dataset_sha256": "66aa395004af4a9e9ce44a87b887614e97a7e1b64afedbb3052c9a42ddb17ddc",
+  "predictions_sha256": "7072bb67d594c650a147d8edc8a13d62c95ab630feaa13f15f15b893c786bce8",
+  "counts": {
+    "gold": 54,
+    "predictions": 54,
+    "missing": 0,
+    "unexpected": 0,
+    "reviewed": 0
+  },
+  "classification": {
+    "n": 54,
+    "accuracy": 0.48148148148148145,
+    "macro_f1": 0.09285714285714286,
+    "per_class": {
+      "account": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 5
+      },
+      "admin": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 3
+      },
+      "appeal": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 4
+      },
+      "other": {
+        "precision": 0.48148148148148145,
+        "recall": 1.0,
+        "f1": 0.65,
+        "support": 26
+      },
+      "payment": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 5
+      },
+      "player": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 7
+      },
+      "technical": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 4
+      }
+    },
+    "confusion": {
+      "player": {
+        "other": 7
+      },
+      "admin": {
+        "other": 3
+      },
+      "appeal": {
+        "other": 4
+      },
+      "account": {
+        "other": 5
+      },
+      "payment": {
+        "other": 5
+      },
+      "technical": {
+        "other": 4
+      },
+      "other": {
+        "other": 26
+      }
+    }
+  },
+  "language_accuracy": 0.9629629629629629,
+  "needs_human": {
+    "accuracy": 0.5925925925925926,
+    "precision": 0.5925925925925926,
+    "recall": 1.0,
+    "false_negative": 0,
+    "false_positive": 22,
+    "error_policy": "missing/error predictions route to human"
+  },
+  "citations": {
+    "count": 0,
+    "valid_count": 0,
+    "validity_rate": null,
+    "gold_labeled_requests": 24,
+    "precision": null,
+    "recall": 0.0,
+    "guardrail_rejections": 0,
+    "entailment_reviewed": 0,
+    "human_supported_rate": null
+  },
+  "draft_quality": {
+    "reviewed": 0,
+    "scale": "1-5, manually reviewed",
+    "scores": {
+      "correctness": null,
+      "usefulness": null,
+      "language": null,
+      "grounding": null
+    }
+  },
+  "runtime": {
+    "requests": 54,
+    "attempts": 54,
+    "ok": 54,
+    "errors": 0,
+    "needs_human_count": 54,
+    "needs_human_rate": 1.0,
+    "latency_p50_ms": 2.0,
+    "latency_p95_ms": 4.35,
+    "llm_p50_ms": 0.0,
+    "llm_p95_ms": 0.0,
+    "latency_samples": 54,
+    "successful_latency_p50_ms": 2.0,
+    "successful_latency_p95_ms": 4.35,
+    "priced_successes": 54,
+    "cost_per_priced_success_usd": 0.0,
+    "batch_pacing_total_ms": 0,
+    "known_cost_usd": 0.0,
+    "priced_attempts": 54,
+    "cost_coverage": 1.0,
+    "cost_per_request_usd": 0.0,
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "usage_samples": 54,
+    "providers": {
+      "offline": 54
+    },
+    "models": {
+      "offline-template": 54
+    },
+    "prompt_versions": [
+      "triage-3.1"
+    ],
+    "corpus_versions": [
+      "fd668da3ceb3de26"
+    ],
+    "errors_by_code": {}
+  },
+  "by_language": {
+    "kk": {
+      "n": 16,
+      "accuracy": 0.5,
+      "macro_f1": 0.09523809523809523,
+      "per_class": {
+        "account": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 1
+        },
+        "admin": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 1
+        },
+        "appeal": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 2
+        },
+        "other": {
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "support": 8
+        },
+        "payment": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 1
+        },
+        "player": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 2
+        },
+        "technical": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 1
+        }
+      },
+      "confusion": {
+        "player": {
+          "other": 2
+        },
+        "admin": {
+          "other": 1
+        },
+        "appeal": {
+          "other": 2
+        },
+        "account": {
+          "other": 1
+        },
+        "payment": {
+          "other": 1
+        },
+        "technical": {
+          "other": 1
+        },
+        "other": {
+          "other": 8
+        }
+      },
+      "language_accuracy": 1.0,
+      "runtime": {
+        "requests": 16,
+        "attempts": 16,
+        "ok": 16,
+        "errors": 0,
+        "needs_human_count": 16,
+        "needs_human_rate": 1.0,
+        "latency_p50_ms": 2.0,
+        "latency_p95_ms": 3.5,
+        "llm_p50_ms": 0.0,
+        "llm_p95_ms": 0.0,
+        "latency_samples": 16,
+        "successful_latency_p50_ms": 2.0,
+        "successful_latency_p95_ms": 3.5,
+        "priced_successes": 16,
+        "cost_per_priced_success_usd": 0.0,
+        "batch_pacing_total_ms": 0,
+        "known_cost_usd": 0.0,
+        "priced_attempts": 16,
+        "cost_coverage": 1.0,
+        "cost_per_request_usd": 0.0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_samples": 16,
+        "providers": {
+          "offline": 16
+        },
+        "models": {
+          "offline-template": 16
+        },
+        "prompt_versions": [
+          "triage-3.1"
+        ],
+        "corpus_versions": [
+          "fd668da3ceb3de26"
+        ],
+        "errors_by_code": {}
+      }
+    },
+    "ru": {
+      "n": 18,
+      "accuracy": 0.5,
+      "macro_f1": 0.09523809523809523,
+      "per_class": {
+        "account": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 1
+        },
+        "admin": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 1
+        },
+        "appeal": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 1
+        },
+        "other": {
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "support": 9
+        },
+        "payment": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 1
+        },
+        "player": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 3
+        },
+        "technical": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 2
+        }
+      },
+      "confusion": {
+        "player": {
+          "other": 3
+        },
+        "admin": {
+          "other": 1
+        },
+        "appeal": {
+          "other": 1
+        },
+        "account": {
+          "other": 1
+        },
+        "payment": {
+          "other": 1
+        },
+        "technical": {
+          "other": 2
+        },
+        "other": {
+          "other": 9
+        }
+      },
+      "language_accuracy": 1.0,
+      "runtime": {
+        "requests": 18,
+        "attempts": 18,
+        "ok": 18,
+        "errors": 0,
+        "needs_human_count": 18,
+        "needs_human_rate": 1.0,
+        "latency_p50_ms": 2.0,
+        "latency_p95_ms": 5.15,
+        "llm_p50_ms": 0.0,
+        "llm_p95_ms": 0.0,
+        "latency_samples": 18,
+        "successful_latency_p50_ms": 2.0,
+        "successful_latency_p95_ms": 5.15,
+        "priced_successes": 18,
+        "cost_per_priced_success_usd": 0.0,
+        "batch_pacing_total_ms": 0,
+        "known_cost_usd": 0.0,
+        "priced_attempts": 18,
+        "cost_coverage": 1.0,
+        "cost_per_request_usd": 0.0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_samples": 18,
+        "providers": {
+          "offline": 18
+        },
+        "models": {
+          "offline-template": 18
+        },
+        "prompt_versions": [
+          "triage-3.1"
+        ],
+        "corpus_versions": [
+          "fd668da3ceb3de26"
+        ],
+        "errors_by_code": {}
+      }
+    },
+    "uz": {
+      "n": 20,
+      "accuracy": 0.45,
+      "macro_f1": 0.08866995073891626,
+      "per_class": {
+        "account": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 3
+        },
+        "admin": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 1
+        },
+        "appeal": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 1
+        },
+        "other": {
+          "precision": 0.45,
+          "recall": 1.0,
+          "f1": 0.6206896551724138,
+          "support": 9
+        },
+        "payment": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 3
+        },
+        "player": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 2
+        },
+        "technical": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 1
+        }
+      },
+      "confusion": {
+        "player": {
+          "other": 2
+        },
+        "admin": {
+          "other": 1
+        },
+        "appeal": {
+          "other": 1
+        },
+        "account": {
+          "other": 3
+        },
+        "payment": {
+          "other": 3
+        },
+        "technical": {
+          "other": 1
+        },
+        "other": {
+          "other": 9
+        }
+      },
+      "language_accuracy": 0.9,
+      "runtime": {
+        "requests": 20,
+        "attempts": 20,
+        "ok": 20,
+        "errors": 0,
+        "needs_human_count": 20,
+        "needs_human_rate": 1.0,
+        "latency_p50_ms": 2.0,
+        "latency_p95_ms": 3.05,
+        "llm_p50_ms": 0.0,
+        "llm_p95_ms": 0.0,
+        "latency_samples": 20,
+        "successful_latency_p50_ms": 2.0,
+        "successful_latency_p95_ms": 3.05,
+        "priced_successes": 20,
+        "cost_per_priced_success_usd": 0.0,
+        "batch_pacing_total_ms": 0,
+        "known_cost_usd": 0.0,
+        "priced_attempts": 20,
+        "cost_coverage": 1.0,
+        "cost_per_request_usd": 0.0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_samples": 20,
+        "providers": {
+          "offline": 20
+        },
+        "models": {
+          "offline-template": 20
+        },
+        "prompt_versions": [
+          "triage-3.1"
+        ],
+        "corpus_versions": [
+          "fd668da3ceb3de26"
+        ],
+        "errors_by_code": {}
+      }
+    }
+  },
+  "examples": [
+    {
+      "id": "trade-kk",
+      "expected": {
+        "id": "trade-kk",
+        "category": "player",
+        "language": "kk",
+        "needs_human": true
+      },
+      "prediction": {
+        "schema_version": "1.0",
+        "id": "trade-kk",
+        "status": "ok",
+        "language": "kk",
+        "category": "other",
+        "intent": "complaint",
+        "summary": "Ойыншы Max_Freeman көлік айырбастағанда менің көлігімді алып, ойыннан шығып кетті. 01-сервер, бүгін 18:30. Мәмілені тексеріңіз.",
+        "claims": [
+          "Ойыншы Max_Freeman көлік айырбастағанда менің көлігімді алып, ойыннан шығып кетті. 01-сервер, бүгін 18:30. Мәмілені тексеріңіз."
+        ],
+        "missing_fields": [],
+        "needs_human": true,
+        "human_reasons": [
+          "Локальный режим: LLM не подключена, содержательный разбор не выполнялся",
+          "Обстоятельства обращения должен проверить сотрудник",
+          "Нужны проверка данных или персональные действия сотрудника",
+          "Черновик требует проверки сотрудником"
+        ],
+        "draft": "Сәлеметсіз бе! Бұл өтінішті қолдау қызметінің маманы тексеруі қажет. Не болғанын сипаттап, қажет болса, серверді, кейіпкер атын және оқиға уақытын көрсетіңіз. Құпиясөзді немесе кіру кодтарын жібермеңіз.",
+        "citations": [],
+        "telemetry": {
+          "attempt_id": "38fa64e811c14d0bb70093c0c1fc70fb",
+          "run_id": "6000fef1bf6749d586da07af22092220",
+          "provider": "offline",
+          "model": "offline-template",
+          "latency_ms": 2,
+          "llm_latency_ms": 0,
+          "cost_usd": 0.0,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0
+          },
+          "pricing": "offline",
+          "prompt_version": "triage-3.1",
+          "corpus_version": "fd668da3ceb3de26",
+          "rates_usd_per_million": {
+            "input": 0.1,
+            "cached_input": 0.01,
+            "output": 0.5,
+            "cache_write": 0.125,
+            "source": "openai-standard-2026-10-30",
+            "cache_write_ttl": "30m",
+            "unit": "USD per 1M tokens"
+          },
+          "called_provider": false,
+          "batch_pacing_ms": 0
+        },
+        "error": null
+      }
+    },
+    {
+      "id": "trade-ru",
+      "expected": {
+        "id": "trade-ru",
+        "category": "player",
+        "language": "ru",
+        "needs_human": true
+      },
+      "prediction": {
+        "schema_version": "1.0",
+        "id": "trade-ru",
+        "status": "ok",
+        "language": "ru",
+        "category": "other",
+        "intent": "complaint",
+        "summary": "Игрок Max_Freeman забрал мою машину при обмене и вышел из игры. Сервер 01, сегодня в 18:30. Проверьте сделку.",
+        "claims": [
+          "Игрок Max_Freeman забрал мою машину при обмене и вышел из игры. Сервер 01, сегодня в 18:30. Проверьте сделку."
+        ],
+        "missing_fields": [],
+        "needs_human": true,
+        "human_reasons": [
+          "Локальный режим: LLM не подключена, содержательный разбор не выполнялся",
+          "Обстоятельства обращения должен проверить сотрудник",
+          "Нужны проверка данных или персональные действия сотрудника",
+          "Черновик требует проверки сотрудником"
+        ],
+        "draft": "Здравствуйте! Для этого обращения нужна проверка сотрудником. Опишите, что произошло, и при необходимости укажите сервер, ник и время события. Не отправляйте пароль или коды входа.",
+        "citations": [],
+        "telemetry": {
+          "attempt_id": "15e7ba3630704a169b12b20d144e38fd",
+          "run_id": "6000fef1bf6749d586da07af22092220",
+          "provider": "offline",
+          "model": "offline-template",
+          "latency_ms": 5,
+          "llm_latency_ms": 0,
+          "cost_usd": 0.0,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0
+          },
+          "pricing": "offline",
+          "prompt_version": "triage-3.1",
+          "corpus_version": "fd668da3ceb3de26",
+          "rates_usd_per_million": {
+            "input": 0.1,
+            "cached_input": 0.01,
+            "output": 0.5,
+            "cache_write": 0.125,
+            "source": "openai-standard-2026-10-30",
+            "cache_write_ttl": "30m",
+            "unit": "USD per 1M tokens"
+          },
+          "called_provider": false,
+          "batch_pacing_ms": 0
+        },
+        "error": null
+      }
+    },
+    {
+      "id": "trade-uz",
+      "expected": {
+        "id": "trade-uz",
+        "category": "player",
+        "language": "uz",
+        "needs_human": true
+      },
+      "prediction": {
+        "schema_version": "1.0",
+        "id": "trade-uz",
+        "status": "ok",
+        "language": "uz",
+        "category": "other",
+        "intent": "complaint",
+        "summary": "Max_Freeman avtomobil ayirboshlashda mashinamni olib, o'yindan chiqib ketdi. 01-server, bugun 18:30. Bitimni tekshiring.",
+        "claims": [
+          "Max_Freeman avtomobil ayirboshlashda mashinamni olib, o'yindan chiqib ketdi. 01-server, bugun 18:30. Bitimni tekshiring."
+        ],
+        "missing_fields": [],
+        "needs_human": true,
+        "human_reasons": [
+          "Локальный режим: LLM не подключена, содержательный разбор не выполнялся",
+          "Обстоятельства обращения должен проверить сотрудник",
+          "Нужны проверка данных или персональные действия сотрудника",
+          "Черновик требует проверки сотрудником"
+        ],
+        "draft": "Salom! Bu murojaatni qo'llab-quvvatlash xodimi tekshirishi kerak. Nima bo'lganini tushuntiring, zarur bo'lsa server, personaj nomi va voqea vaqtini ko'rsating. Parol yoki kirish kodlarini yubormang.",
+        "citations": [],
+        "telemetry": {
+          "attempt_id": "3f6b8db999164230921125a570cf6a3f",
+          "run_id": "6000fef1bf6749d586da07af22092220",
+          "provider": "offline",
+          "model": "offline-template",
+          "latency_ms": 3,
+          "llm_latency_ms": 0,
+          "cost_usd": 0.0,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0
+          },
+          "pricing": "offline",
+          "prompt_version": "triage-3.1",
+          "corpus_version": "fd668da3ceb3de26",
+          "rates_usd_per_million": {
+            "input": 0.1,
+            "cached_input": 0.01,
+            "output": 0.5,
+            "cache_write": 0.125,
+            "source": "openai-standard-2026-10-30",
+            "cache_write_ttl": "30m",
+            "unit": "USD per 1M tokens"
+          },
+          "called_provider": false,
+          "batch_pacing_ms": 0
+        },
+        "error": null
+      }
+    },
+    {
+      "id": "dm-ru",
+      "expected": {
+        "id": "dm-ru",
+        "category": "player",
+        "language": "ru",
+        "needs_human": true
+      },
+      "prediction": {
+        "schema_version": "1.0",
+        "id": "dm-ru",
+        "status": "ok",
+        "language": "ru",
+        "category": "other",
+        "intent": "complaint",
+        "summary": "Alex_Black застрелил меня без RP-причины возле магазина вчера в 20:10 на сервере 03. Есть запись. Прошу рассмотреть жалобу.",
+        "claims": [
+          "Alex_Black застрелил меня без RP-причины возле магазина вчера в 20:10 на сервере 03. Есть запись. Прошу рассмотреть жалобу."
+        ],
+        "missing_fields": [],
+        "needs_human": true,
+        "human_reasons": [
+          "Локальный режим: LLM не подключена, содержательный разбор не выполнялся",
+          "Обстоятельства обращения должен проверить сотрудник",
+          "Нужны проверка данных или персональные действия сотрудника",
+          "Черновик требует проверки сотрудником"
+        ],
+        "draft": "Здравствуйте! Для этого обращения нужна проверка сотрудником. Опишите, что произошло, и при необходимости укажите сервер, ник и время события. Не отправляйте пароль или коды входа.",
+        "citations": [],
+        "telemetry": {
+          "attempt_id": "a49ef4cbba374ec1a4e8aba0b74c90cb",
+          "run_id": "6000fef1bf6749d586da07af22092220",
+          "provider": "offline",
+          "model": "offline-template",
+          "latency_ms": 2,
+          "llm_latency_ms": 0,
+          "cost_usd": 0.0,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0
+          },
+          "pricing": "offline",
+          "prompt_version": "triage-3.1",
+          "corpus_version": "fd668da3ceb3de26",
+          "rates_usd_per_million": {
+            "input": 0.1,
+            "cached_input": 0.01,
+            "output": 0.5,
+            "cache_write": 0.125,
+            "source": "openai-standard-2026-10-30",
+            "cache_write_ttl": "30m",
+            "unit": "USD per 1M tokens"
+          },
+          "called_provider": false,
+          "batch_pacing_ms": 0
+        },
+        "error": null
+      }
+    },
+    {
+      "id": "dm-kk",
+      "expected": {
+        "id": "dm-kk",
+        "category": "player",
+        "language": "kk",
+        "needs_human": true
+      },
+      "prediction": {
+        "schema_version": "1.0",
+        "id": "dm-kk",
+        "status": "ok",
+        "language": "kk",
+        "category": "other",
+        "intent": "complaint",
+        "summary": "Alex_Black кеше 20:10-да 03-сервердегі дүкен жанында мені RP себебінсіз атып тастады. Бейнежазба бар. Шағымымды қараңыз.",
+        "claims": [
+          "Alex_Black кеше 20:10-да 03-сервердегі дүкен жанында мені RP себебінсіз атып тастады. Бейнежазба бар. Шағымымды қараңыз."
+        ],
+        "missing_fields": [],
+        "needs_human": true,
+        "human_reasons": [
+          "Локальный режим: LLM не подключена, содержательный разбор не выполнялся",
+          "Обстоятельства обращения должен проверить сотрудник",
+          "Нужны проверка данных или персональные действия сотрудника",
+          "Черновик требует проверки сотрудником"
+        ],
+        "draft": "Сәлеметсіз бе! Бұл өтінішті қолдау қызметінің маманы тексеруі қажет. Не болғанын сипаттап, қажет болса, серверді, кейіпкер атын және оқиға уақытын көрсетіңіз. Құпиясөзді немесе кіру кодтарын жібермеңіз.",
+        "citations": [],
+        "telemetry": {
+          "attempt_id": "e97748a103314f57a0786599355686c0",
+          "run_id": "6000fef1bf6749d586da07af22092220",
+          "provider": "offline",
+          "model": "offline-template",
+          "latency_ms": 2,
+          "llm_latency_ms": 0,
+          "cost_usd": 0.0,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0
+          },
+          "pricing": "offline",
+          "prompt_version": "triage-3.1",
+          "corpus_version": "fd668da3ceb3de26",
+          "rates_usd_per_million": {
+            "input": 0.1,
+            "cached_input": 0.01,
+            "output": 0.5,
+            "cache_write": 0.125,
+            "source": "openai-standard-2026-10-30",
+            "cache_write_ttl": "30m",
+            "unit": "USD per 1M tokens"
+          },
+          "called_provider": false,
+          "batch_pacing_ms": 0
+        },
+        "error": null
+      }
+    },
+    {
+      "id": "dm-uz",
+      "expected": {
+        "id": "dm-uz",
+        "category": "player",
+        "language": "uz",
+        "needs_human": true
+      },
+      "prediction": {
+        "schema_version": "1.0",
+        "id": "dm-uz",
+        "status": "ok",
+        "language": "en",
+        "category": "other",
+        "intent": "complaint",
+        "summary": "Alex_Black kecha soat 20:10 da 03-serverdagi do'kon yonida meni RP sababisiz otib tashladi. Video bor. Shikoyatimni ko'rib chiqing.",
+        "claims": [
+          "Alex_Black kecha soat 20:10 da 03-serverdagi do'kon yonida meni RP sababisiz otib tashladi. Video bor. Shikoyatimni ko'rib chiqing."
+        ],
+        "missing_fields": [],
+        "needs_human": true,
+        "human_reasons": [
+          "Локальный режим: LLM не подключена, содержательный разбор не выполнялся",
+          "Обстоятельства обращения должен проверить сотрудник",
+          "Нужны проверка данных или персональные действия сотрудника",
+          "Черновик требует проверки сотрудником"
+        ],
+        "draft": "Hello! A support specialist needs to review this request. Describe what happened and, if relevant, provide the server, nickname and incident time. Do not send passwords or login codes.",
+        "citations": [],
+        "telemetry": {
+          "attempt_id": "07b2aaec06534ca790d5c6392617483c",
+          "run_id": "6000fef1bf6749d586da07af22092220",
+          "provider": "offline",
+          "model": "offline-template",
+          "latency_ms": 2,
+          "llm_latency_ms": 0,
+          "cost_usd": 0.0,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0
+          },
+          "pricing": "offline",
+          "prompt_version": "triage-3.1",
+          "corpus_version": "fd668da3ceb3de26",
+          "rates_usd_per_million": {
+            "input": 0.1,
+            "cached_input": 0.01,
+            "output": 0.5,
+            "cache_write": 0.125,
+            "source": "openai-standard-2026-10-30",
+            "cache_write_ttl": "30m",
+            "unit": "USD per 1M tokens"
+          },
+          "called_provider": false,
+          "batch_pacing_ms": 0
+        },
+        "error": null
+      }
+    },
+    {
+      "id": "admin-ru",
+      "expected": {
+        "id": "admin-ru",
+        "category": "admin",
+        "language": "ru",
+        "needs_human": true
+      },
+      "prediction": {
+        "schema_version": "1.0",
+        "id": "admin-ru",
+        "status": "ok",
+        "language": "ru",
+        "category": "other",
+        "intent": "complaint",
+        "summary": "Администратор Anton_Black оскорбляет игроков в чате. Жалуюсь на его поведение, а не на наказание. Сервер 02, вчера вечером.",
+        "claims": [
+          "Администратор Anton_Black оскорбляет игроков в чате. Жалуюсь на его поведение, а не на наказание. Сервер 02, вчера вечером."
+        ],
+        "missing_fields": [],
+        "needs_human": true,
+        "human_reasons": [
+          "Локальный режим: LLM не подключена, содержательный разбор не выполнялся",
+          "Обстоятельства обращения должен проверить сотрудник",
+          "Нужны проверка данных или персональные действия сотрудника",
+          "Черновик требует проверки сотрудником"
+        ],
+        "draft": "Здравствуйте! Для этого обращения нужна проверка сотрудником. Опишите, что произошло, и при необходимости укажите сервер, ник и время события. Не отправляйте пароль или коды входа.",
+        "citations": [],
+        "telemetry": {
+          "attempt_id": "8c90c8711cd04c47b85552bcf11c4cfe",
+          "run_id": "6000fef1bf6749d586da07af22092220",
+          "provider": "offline",
+          "model": "offline-template",
+          "latency_ms": 2,
+          "llm_latency_ms": 0,
+          "cost_usd": 0.0,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0
+          },
+          "pricing": "offline",
+          "prompt_version": "triage-3.1",
+          "corpus_version": "fd668da3ceb3de26",
+          "rates_usd_per_million": {
+            "input": 0.1,
+            "cached_input": 0.01,
+            "output": 0.5,
+            "cache_write": 0.125,
+            "source": "openai-standard-2026-10-30",
+            "cache_write_ttl": "30m",
+            "unit": "USD per 1M tokens"
+          },
+          "called_provider": false,
+          "batch_pacing_ms": 0
+        },
+        "error": null
+      }
+    },
+    {
+      "id": "admin-kk",
+      "expected": {
+        "id": "admin-kk",
+        "category": "admin",
+        "language": "kk",
+        "needs_human": true
+      },
+      "prediction": {
+        "schema_version": "1.0",
+        "id": "admin-kk",
+        "status": "ok",
+        "language": "kk",
+        "category": "other",
+        "intent": "complaint",
+        "summary": "Әкімші Anton_Black чатта ойыншыларды қорлайды. Жазаға емес, оның мінез-құлқына шағымданамын. 02-сервер, кеше кешке.",
+        "claims": [
+          "Әкімші Anton_Black чатта ойыншыларды қорлайды. Жазаға емес, оның мінез-құлқына шағымданамын. 02-сервер, кеше кешке."
+        ],
+        "missing_fields": [],
+        "needs_human": true,
+        "human_reasons": [
+          "Локальный режим: LLM не подключена, содержательный разбор не выполнялся",
+          "Обстоятельства обращения должен проверить сотрудник",
+          "Нужны проверка данных или персональные действия сотрудника",
+          "Черновик требует проверки сотрудником"
+        ],
+        "draft": "Сәлеметсіз бе! Бұл өтінішті қолдау қызметінің маманы тексеруі қажет. Не болғанын сипаттап, қажет болса, серверді, кейіпкер атын және оқиға уақытын көрсетіңіз. Құпиясөзді немесе кіру кодтарын жібермеңіз.",
+        "citations": [],
+        "telemetry": {
+          "attempt_id": "e8cda3e28fda4990bc42e2c1a07c4266",
+          "run_id": "6000fef1bf6749d586da07af22092220",
+          "provider": "offline",
+          "model": "offline-template",
+          "latency_ms": 2,
+          "llm_latency_ms": 0,
+          "cost_usd": 0.0,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0
+          },
+          "pricing": "offline",
+          "prompt_version": "triage-3.1",
+          "corpus_version": "fd668da3ceb3de26",
+          "rates_usd_per_million": {
+            "input": 0.1,
+            "cached_input": 0.01,
+            "output": 0.5,
+            "cache_write": 0.125,
+            "source": "openai-standard-2026-10-30",
+            "cache_write_ttl": "30m",
+            "unit": "USD per 1M tokens"
+          },
+          "called_provider": false,
+          "batch_pacing_ms": 0
+        },
+        "error": null
+      }
+    },
+    {
+      "id": "admin-uz",
+      "expected": {
+        "id": "admin-uz",
+        "category": "admin",
+        "language": "uz",
+        "needs_human": true
+      },
+      "prediction": {
+        "schema_version": "1.0",
+        "id": "admin-uz",
+        "status": "ok",
+        "language": "uz",
+        "category": "other",
+        "intent": "complaint",
+        "summary": "Administrator Anton_Black chatda o'yinchilarni haqorat qilmoqda. Jazoga emas, uning xatti-harakatiga shikoyat qilaman. 02-server, kecha kechqurun.",
+        "claims": [
+          "Administrator Anton_Black chatda o'yinchilarni haqorat qilmoqda. Jazoga emas, uning xatti-harakatiga shikoyat qilaman. 02-server, kecha kechqurun."
+        ],
+        "missing_fields": [],
+        "needs_human": true,
+        "human_reasons": [
+          "Локальный режим: LLM не подключена, содержательный разбор не выполнялся",
+          "Обстоятельства обращения должен проверить сотрудник",
+          "Нужны проверка данных или персональные действия сотрудника",
+          "Черновик требует проверки сотрудником"
+        ],
+        "draft": "Salom! Bu murojaatni qo'llab-quvvatlash xodimi tekshirishi kerak. Nima bo'lganini tushuntiring, zarur bo'lsa server, personaj nomi va voqea vaqtini ko'rsating. Parol yoki kirish kodlarini yubormang.",
+        "citations": [],
+        "telemetry": {
+          "attempt_id": "8cf57b639a8e4ad9ba8691742950b3bc",
+          "run_id": "6000fef1bf6749d586da07af22092220",
+          "provider": "offline",
+          "model": "offline-template",
+          "latency_ms": 2,
+          "llm_latency_ms": 0,
+          "cost_usd": 0.0,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0
+          },
+          "pricing": "offline",
+          "prompt_version": "triage-3.1",
+          "corpus_version": "fd668da3ceb3de26",
+          "rates_usd_per_million": {
+            "input": 0.1,
+            "cached_input": 0.01,
+            "output": 0.5,
+            "cache_write": 0.125,
+            "source": "openai-standard-2026-10-30",
+            "cache_write_ttl": "30m",
+            "unit": "USD per 1M tokens"
+          },
+          "called_provider": false,
+          "batch_pacing_ms": 0
+        },
+        "error": null
+      }
+    }
+  ],
+  "limitations": [
+    "Synthetic data is a development check, not an organizer or production benchmark.",
+    "Existing source IDs do not prove semantic support; grounding requires manual review.",
+    "Latency measures processing, excludes CRM queue wait; costs are token-price estimates, not invoices.",
+    "Offline results do not measure LLM quality; mixed model/prompt/corpus runs must be interpreted separately."
+  ]
+}

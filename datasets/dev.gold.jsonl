@@ -1,0 +1,54 @@
+{"id": "trade-ru", "category": "player", "language": "ru", "needs_human": true}
+{"id": "trade-kk", "category": "player", "language": "kk", "needs_human": true}
+{"id": "trade-uz", "category": "player", "language": "uz", "needs_human": true}
+{"id": "dm-ru", "category": "player", "language": "ru", "needs_human": true}
+{"id": "dm-kk", "category": "player", "language": "kk", "needs_human": true}
+{"id": "dm-uz", "category": "player", "language": "uz", "needs_human": true}
+{"id": "admin-ru", "category": "admin", "language": "ru", "needs_human": true}
+{"id": "admin-kk", "category": "admin", "language": "kk", "needs_human": true}
+{"id": "admin-uz", "category": "admin", "language": "uz", "needs_human": true}
+{"id": "appeal-ru", "category": "appeal", "language": "ru", "needs_human": true}
+{"id": "appeal-kk", "category": "appeal", "language": "kk", "needs_human": true}
+{"id": "appeal-uz", "category": "appeal", "language": "uz", "needs_human": true}
+{"id": "recovery-ru", "category": "account", "language": "ru", "needs_human": true}
+{"id": "recovery-kk", "category": "account", "language": "kk", "needs_human": true}
+{"id": "recovery-uz", "category": "account", "language": "uz", "needs_human": true}
+{"id": "payment-ru", "category": "payment", "language": "ru", "needs_human": true}
+{"id": "payment-kk", "category": "payment", "language": "kk", "needs_human": true}
+{"id": "payment-uz", "category": "payment", "language": "uz", "needs_human": true}
+{"id": "crash-ru", "category": "technical", "language": "ru", "needs_human": true}
+{"id": "crash-kk", "category": "technical", "language": "kk", "needs_human": true}
+{"id": "crash-uz", "category": "technical", "language": "uz", "needs_human": true}
+{"id": "rp-ru", "category": "other", "language": "ru", "needs_human": false, "rule_ids": ["gm-rp"]}
+{"id": "rp-kk", "category": "other", "language": "kk", "needs_human": false, "rule_ids": ["gm-rp"]}
+{"id": "rp-uz", "category": "other", "language": "uz", "needs_human": false, "rule_ids": ["gm-rp"]}
+{"id": "file-complaint-ru", "category": "other", "language": "ru", "needs_human": false, "rule_ids": ["gm-help-11071809"]}
+{"id": "file-complaint-kk", "category": "other", "language": "kk", "needs_human": false, "rule_ids": ["gm-help-11071809"]}
+{"id": "file-complaint-uz", "category": "other", "language": "uz", "needs_human": false, "rule_ids": ["gm-help-11071809"]}
+{"id": "greeting-ru", "category": "other", "language": "ru", "needs_human": false, "rule_ids": []}
+{"id": "greeting-kk", "category": "other", "language": "kk", "needs_human": false, "rule_ids": []}
+{"id": "greeting-uz", "category": "other", "language": "uz", "needs_human": false, "rule_ids": []}
+{"id": "nonsense-ru", "category": "other", "language": "ru", "needs_human": false, "rule_ids": []}
+{"id": "nonsense-kk", "category": "other", "language": "kk", "needs_human": false, "rule_ids": []}
+{"id": "nonsense-uz", "category": "other", "language": "uz", "needs_human": false, "rule_ids": []}
+{"id": "unknown-gameplay-ru", "category": "other", "language": "ru", "needs_human": true, "rule_ids": []}
+{"id": "unknown-gameplay-kk", "category": "other", "language": "kk", "needs_human": true, "rule_ids": []}
+{"id": "unknown-gameplay-uz", "category": "other", "language": "uz", "needs_human": true, "rule_ids": []}
+{"id": "mg-ru", "category": "other", "language": "ru", "needs_human": false, "rule_ids": ["gm-mg"]}
+{"id": "mg-kk", "category": "other", "language": "kk", "needs_human": false, "rule_ids": ["gm-mg"]}
+{"id": "mg-uz", "category": "other", "language": "uz", "needs_human": false, "rule_ids": ["gm-mg"]}
+{"id": "macros-ru", "category": "other", "language": "ru", "needs_human": false, "rule_ids": ["gm-5.2"]}
+{"id": "macros-kk", "category": "other", "language": "kk", "needs_human": false, "rule_ids": ["gm-5.2"]}
+{"id": "macros-uz", "category": "other", "language": "uz", "needs_human": false, "rule_ids": ["gm-5.2"]}
+{"id": "delete-ru", "category": "other", "language": "ru", "needs_human": false, "rule_ids": ["gm-1.7"]}
+{"id": "delete-kk", "category": "other", "language": "kk", "needs_human": false, "rule_ids": ["gm-1.7"]}
+{"id": "delete-uz", "category": "other", "language": "uz", "needs_human": false, "rule_ids": ["gm-1.7"]}
+{"id": "uz-cyr-recovery", "category": "account", "language": "uz", "needs_human": true}
+{"id": "uz-cyr-rp", "category": "other", "language": "uz", "needs_human": false}
+{"id": "uz-cyr-payment", "category": "payment", "language": "uz", "needs_human": true}
+{"id": "mixed-kk-appeal", "category": "appeal", "language": "kk", "needs_human": true}
+{"id": "mixed-uz-recovery", "category": "account", "language": "uz", "needs_human": true}
+{"id": "mixed-ru-technical", "category": "technical", "language": "ru", "needs_human": true}
+{"id": "inject-player", "category": "player", "language": "ru", "needs_human": true}
+{"id": "inject-rule", "category": "other", "language": "ru", "needs_human": true}
+{"id": "inject-uz", "category": "payment", "language": "uz", "needs_human": true}

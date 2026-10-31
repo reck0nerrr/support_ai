@@ -1,12 +1,13 @@
 import argparse
 import getpass
 import os
-from sqlalchemy import select
+from sqlalchemy import delete, select
 from .config import settings
 from .db import session_factory
-from .models import Player, Profile, Rule, Staff, Ticket
+from .models import AuthSession, Player, Profile, Rule, Staff, Ticket
 from .security import hash_password
 from .services import create_ticket
+from .knowledge import bundled_rules
 
 # Paraphrases of official help pages, imported as unapproved reference articles.
 SOURCES = [
@@ -63,6 +64,19 @@ DEMOS = [
 
 
 def seed_rules(db):
+    for source in bundled_rules():
+        if not db.get(Rule, source["id"]):
+            db.add(
+                Rule(
+                    **{
+                        k: v
+                        for k, v in source.items()
+                        if k
+                        in {"id", "title", "clause", "url", "version", "text", "server"}
+                    },
+                    approved=True,
+                )
+            )
     for item in SOURCES:
         if not db.scalar(
             select(Rule).where(Rule.url == item["url"], Rule.version == item["version"])
@@ -82,18 +96,30 @@ def main():
     create.add_argument(
         "--servers", default="", help="Comma-separated exact server names"
     )
+    reset = sub.add_parser("reset-password")
+    reset.add_argument("--login", required=True)
     sub.add_parser("seed-rules")
     sub.add_parser("seed-demo")
     args = parser.parse_args()
     with session_factory()() as db, db.begin():
-        if args.command == "create-staff":
-            if db.scalar(select(Staff).where(Staff.login == args.login)):
+        if args.command in {"create-staff", "reset-password"}:
+            existing = db.scalar(select(Staff).where(Staff.login == args.login))
+            if args.command == "create-staff" and existing:
                 raise SystemExit("Login already exists")
+            if args.command == "reset-password" and not existing:
+                raise SystemExit("Login does not exist")
             password = os.environ.get("COPILOT_STAFF_PASSWORD") or getpass.getpass(
                 "Password (12+ characters): "
             )
             if len(password) < 12 or len(password) > 200:
                 raise SystemExit("Password must contain 12–200 characters")
+            if args.command == "reset-password":
+                existing.password_hash = hash_password(password)
+                db.execute(
+                    delete(AuthSession).where(AuthSession.staff_id == existing.id)
+                )
+                print("Password updated; existing sessions revoked")
+                return
             db.add(
                 Staff(
                     login=args.login,
@@ -106,7 +132,9 @@ def main():
             print("Staff account created")
         elif args.command == "seed-rules":
             seed_rules(db)
-            print("Reference articles added, awaiting approval")
+            print(
+                "Reviewed bundled rules added; legacy help drafts still await approval"
+            )
         elif args.command == "seed-demo":
             if not settings().demo_enabled or settings().environment == "production":
                 raise SystemExit("Demo is disabled")

@@ -1,0 +1,1177 @@
+{
+  "schema_version": "1.0",
+  "name": "Support Copilot · evaluation",
+  "created_at": "2026-10-30T16:37:25.073751+00:00",
+  "dataset_kind": "synthetic",
+  "dataset_sha256": "66aa395004af4a9e9ce44a87b887614e97a7e1b64afedbb3052c9a42ddb17ddc",
+  "predictions_sha256": "b70caca39a4739d31eee12b29b2339cf3a2381f37f783d8f8ee9088f7b680f12",
+  "counts": {
+    "gold": 54,
+    "predictions": 54,
+    "missing": 0,
+    "unexpected": 0,
+    "reviewed": 0
+  },
+  "classification": {
+    "n": 54,
+    "accuracy": 0.5740740740740741,
+    "macro_f1": 0.8132740275597418,
+    "per_class": {
+      "account": {
+        "precision": 1.0,
+        "recall": 0.6,
+        "f1": 0.7499999999999999,
+        "support": 5
+      },
+      "admin": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 3
+      },
+      "appeal": {
+        "precision": 1.0,
+        "recall": 0.75,
+        "f1": 0.8571428571428571,
+        "support": 4
+      },
+      "other": {
+        "precision": 1.0,
+        "recall": 0.38461538461538464,
+        "f1": 0.5555555555555556,
+        "support": 26
+      },
+      "payment": {
+        "precision": 1.0,
+        "recall": 0.6,
+        "f1": 0.7499999999999999,
+        "support": 5
+      },
+      "player": {
+        "precision": 1.0,
+        "recall": 0.8571428571428571,
+        "f1": 0.923076923076923,
+        "support": 7
+      },
+      "technical": {
+        "precision": 1.0,
+        "recall": 0.75,
+        "f1": 0.8571428571428571,
+        "support": 4
+      }
+    },
+    "confusion": {
+      "player": {
+        "player": 6,
+        "__error__": 1
+      },
+      "admin": {
+        "admin": 3
+      },
+      "appeal": {
+        "appeal": 3,
+        "__error__": 1
+      },
+      "account": {
+        "account": 3,
+        "__error__": 2
+      },
+      "payment": {
+        "payment": 3,
+        "__error__": 2
+      },
+      "technical": {
+        "technical": 3,
+        "__error__": 1
+      },
+      "other": {
+        "other": 10,
+        "__error__": 16
+      }
+    }
+  },
+  "language_accuracy": 0.5740740740740741,
+  "needs_human": {
+    "accuracy": 0.7777777777777778,
+    "precision": 0.7272727272727273,
+    "recall": 1.0,
+    "false_negative": 0,
+    "false_positive": 12,
+    "error_policy": "missing/error predictions route to human"
+  },
+  "citations": {
+    "count": 24,
+    "valid_count": 24,
+    "validity_rate": 1.0,
+    "gold_labeled_requests": 24,
+    "precision": 1.0,
+    "recall": 0.4,
+    "guardrail_rejections": 0,
+    "entailment_reviewed": 0,
+    "human_supported_rate": null
+  },
+  "draft_quality": {
+    "reviewed": 0,
+    "scale": "1-5, manually reviewed",
+    "scores": {
+      "correctness": null,
+      "usefulness": null,
+      "language": null,
+      "grounding": null
+    }
+  },
+  "runtime": {
+    "requests": 54,
+    "attempts": 54,
+    "ok": 31,
+    "errors": 23,
+    "needs_human_count": 44,
+    "needs_human_rate": 0.8148148148148148,
+    "latency_p50_ms": 2955.5,
+    "latency_p95_ms": 6138.7,
+    "llm_p50_ms": 2952.0,
+    "llm_p95_ms": 6135.7,
+    "latency_samples": 54,
+    "successful_latency_p50_ms": 3815.0,
+    "successful_latency_p95_ms": 6588.0,
+    "priced_successes": 31,
+    "cost_per_priced_success_usd": 0.0004672073,
+    "batch_pacing_total_ms": 0,
+    "known_cost_usd": 0.014483425,
+    "priced_attempts": 31,
+    "cost_coverage": 0.5740740740740741,
+    "cost_per_request_usd": null,
+    "input_tokens": 82186,
+    "output_tokens": 8425,
+    "usage_samples": 31,
+    "providers": {
+      "openai": 54
+    },
+    "models": {
+      "gpt-6-luna": 54
+    },
+    "prompt_versions": [
+      "triage-3.1"
+    ],
+    "corpus_versions": [
+      "fd668da3ceb3de26"
+    ],
+    "errors_by_code": {
+      "provider_http_429": 23
+    }
+  },
+  "by_language": {
+    "kk": {
+      "n": 16,
+      "accuracy": 0.625,
+      "macro_f1": 0.8874458874458874,
+      "per_class": {
+        "account": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 1
+        },
+        "admin": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 1
+        },
+        "appeal": {
+          "precision": 1.0,
+          "recall": 0.5,
+          "f1": 0.6666666666666666,
+          "support": 2
+        },
+        "other": {
+          "precision": 1.0,
+          "recall": 0.375,
+          "f1": 0.5454545454545454,
+          "support": 8
+        },
+        "payment": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 1
+        },
+        "player": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 2
+        },
+        "technical": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 1
+        }
+      },
+      "confusion": {
+        "player": {
+          "player": 2
+        },
+        "admin": {
+          "admin": 1
+        },
+        "appeal": {
+          "appeal": 1,
+          "__error__": 1
+        },
+        "account": {
+          "account": 1
+        },
+        "payment": {
+          "payment": 1
+        },
+        "technical": {
+          "technical": 1
+        },
+        "other": {
+          "other": 3,
+          "__error__": 5
+        }
+      },
+      "language_accuracy": 0.625,
+      "runtime": {
+        "requests": 16,
+        "attempts": 16,
+        "ok": 10,
+        "errors": 6,
+        "needs_human_count": 13,
+        "needs_human_rate": 0.8125,
+        "latency_p50_ms": 3162.0,
+        "latency_p95_ms": 6410.5,
+        "llm_p50_ms": 3159.0,
+        "llm_p95_ms": 6407.5,
+        "latency_samples": 16,
+        "successful_latency_p50_ms": 4006.5,
+        "successful_latency_p95_ms": 6635.8,
+        "priced_successes": 10,
+        "cost_per_priced_success_usd": 0.0004819875,
+        "batch_pacing_total_ms": 0,
+        "known_cost_usd": 0.004819875,
+        "priced_attempts": 10,
+        "cost_coverage": 0.625,
+        "cost_per_request_usd": null,
+        "input_tokens": 26537,
+        "output_tokens": 3007,
+        "usage_samples": 10,
+        "providers": {
+          "openai": 16
+        },
+        "models": {
+          "gpt-6-luna": 16
+        },
+        "prompt_versions": [
+          "triage-3.1"
+        ],
+        "corpus_versions": [
+          "fd668da3ceb3de26"
+        ],
+        "errors_by_code": {
+          "provider_http_429": 6
+        }
+      }
+    },
+    "ru": {
+      "n": 18,
+      "accuracy": 0.5555555555555556,
+      "macro_f1": 0.8523809523809524,
+      "per_class": {
+        "account": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 1
+        },
+        "admin": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 1
+        },
+        "appeal": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 1
+        },
+        "other": {
+          "precision": 1.0,
+          "recall": 0.3333333333333333,
+          "f1": 0.5,
+          "support": 9
+        },
+        "payment": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 1
+        },
+        "player": {
+          "precision": 1.0,
+          "recall": 0.6666666666666666,
+          "f1": 0.8,
+          "support": 3
+        },
+        "technical": {
+          "precision": 1.0,
+          "recall": 0.5,
+          "f1": 0.6666666666666666,
+          "support": 2
+        }
+      },
+      "confusion": {
+        "player": {
+          "player": 2,
+          "__error__": 1
+        },
+        "admin": {
+          "admin": 1
+        },
+        "appeal": {
+          "appeal": 1
+        },
+        "account": {
+          "account": 1
+        },
+        "payment": {
+          "payment": 1
+        },
+        "technical": {
+          "technical": 1,
+          "__error__": 1
+        },
+        "other": {
+          "other": 3,
+          "__error__": 6
+        }
+      },
+      "language_accuracy": 0.5555555555555556,
+      "runtime": {
+        "requests": 18,
+        "attempts": 18,
+        "ok": 10,
+        "errors": 8,
+        "needs_human_count": 15,
+        "needs_human_rate": 0.8333333333333334,
+        "latency_p50_ms": 3019.5,
+        "latency_p95_ms": 5393.45,
+        "llm_p50_ms": 3016.5,
+        "llm_p95_ms": 5382.8,
+        "latency_samples": 18,
+        "successful_latency_p50_ms": 3374.0,
+        "successful_latency_p95_ms": 5554.65,
+        "priced_successes": 10,
+        "cost_per_priced_success_usd": 0.0004463625,
+        "batch_pacing_total_ms": 0,
+        "known_cost_usd": 0.004463625,
+        "priced_attempts": 10,
+        "cost_coverage": 0.5555555555555556,
+        "cost_per_request_usd": null,
+        "input_tokens": 26455,
+        "output_tokens": 2315,
+        "usage_samples": 10,
+        "providers": {
+          "openai": 18
+        },
+        "models": {
+          "gpt-6-luna": 18
+        },
+        "prompt_versions": [
+          "triage-3.1"
+        ],
+        "corpus_versions": [
+          "fd668da3ceb3de26"
+        ],
+        "errors_by_code": {
+          "provider_http_429": 8
+        }
+      }
+    },
+    "uz": {
+      "n": 20,
+      "accuracy": 0.55,
+      "macro_f1": 0.8021978021978021,
+      "per_class": {
+        "account": {
+          "precision": 1.0,
+          "recall": 0.3333333333333333,
+          "f1": 0.5,
+          "support": 3
+        },
+        "admin": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 1
+        },
+        "appeal": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 1
+        },
+        "other": {
+          "precision": 1.0,
+          "recall": 0.4444444444444444,
+          "f1": 0.6153846153846153,
+          "support": 9
+        },
+        "payment": {
+          "precision": 1.0,
+          "recall": 0.3333333333333333,
+          "f1": 0.5,
+          "support": 3
+        },
+        "player": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 2
+        },
+        "technical": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 1
+        }
+      },
+      "confusion": {
+        "player": {
+          "player": 2
+        },
+        "admin": {
+          "admin": 1
+        },
+        "appeal": {
+          "appeal": 1
+        },
+        "account": {
+          "account": 1,
+          "__error__": 2
+        },
+        "payment": {
+          "payment": 1,
+          "__error__": 2
+        },
+        "technical": {
+          "technical": 1
+        },
+        "other": {
+          "other": 4,
+          "__error__": 5
+        }
+      },
+      "language_accuracy": 0.55,
+      "runtime": {
+        "requests": 20,
+        "attempts": 20,
+        "ok": 11,
+        "errors": 9,
+        "needs_human_count": 16,
+        "needs_human_rate": 0.8,
+        "latency_p50_ms": 2764.0,
+        "latency_p95_ms": 5913.85,
+        "llm_p50_ms": 2760.5,
+        "llm_p95_ms": 5910.85,
+        "latency_samples": 20,
+        "successful_latency_p50_ms": 4057.0,
+        "successful_latency_p95_ms": 7550.5,
+        "priced_successes": 11,
+        "cost_per_priced_success_usd": 0.0004727205,
+        "batch_pacing_total_ms": 0,
+        "known_cost_usd": 0.005199925,
+        "priced_attempts": 11,
+        "cost_coverage": 0.55,
+        "cost_per_request_usd": null,
+        "input_tokens": 29194,
+        "output_tokens": 3103,
+        "usage_samples": 11,
+        "providers": {
+          "openai": 20
+        },
+        "models": {
+          "gpt-6-luna": 20
+        },
+        "prompt_versions": [
+          "triage-3.1"
+        ],
+        "corpus_versions": [
+          "fd668da3ceb3de26"
+        ],
+        "errors_by_code": {
+          "provider_http_429": 9
+        }
+      }
+    }
+  },
+  "examples": [
+    {
+      "id": "trade-kk",
+      "expected": {
+        "id": "trade-kk",
+        "category": "player",
+        "language": "kk",
+        "needs_human": true
+      },
+      "prediction": {
+        "schema_version": "1.0",
+        "id": "trade-kk",
+        "status": "ok",
+        "language": "kk",
+        "category": "player",
+        "intent": "complaint",
+        "summary": "Ойыншы Max_Freeman көлік айырбастау кезінде өтініш берушінің көлігін алып, ойыннан шығып кеткенін айтады. Оқиға 01-серверде бүгін 18:30-да болған; мәмілені тексеруді сұрайды.",
+        "claims": [
+          "Max_Freeman көлік айырбастау кезінде өтініш берушінің көлігін алып, ойыннан шығып кеткен.",
+          "Оқиға 01-серверде бүгін 18:30-да болған.",
+          "Өтініш беруші мәмілені тексеруді сұрайды."
+        ],
+        "missing_fields": [
+          "Ойыншының нақты никі және сервері расталуы керек.",
+          "Оқиғаның күні мен уақыты және мәміле егжей-тегжейлері.",
+          "Скриншот немесе видеодәлел."
+        ],
+        "needs_human": true,
+        "human_reasons": [
+          "Бұл басқа ойыншыға қатысты ықтимал алаяқтық туралы жеке шағым; мәмілені тексеру үшін адамға қарау және аккаунт деректеріне қолжетімділік қажет.",
+          "Жалпы нұсқаулық бойынша шағым лаунчердің кейіпкер таңдау мәзіріндегі шағымдар бөлімінде беріледі; ник, оқиға орны мен уақыты көрсетіліп, скриншот немесе видео сілтемесі қоса беріледі. Дәлелсіз шағым қабылданбауы мүмкін.",
+          "Обстоятельства обращения должен проверить сотрудник",
+          "Нужны проверка данных или персональные действия сотрудника",
+          "Не хватает сведений для полного ответа",
+          "Черновик требует проверки сотрудником"
+        ],
+        "draft": "Сипаттауыңыз бойынша, Max_Freeman көлік айырбастау кезінде көлігіңізді алып, ойыннан шығып кеткен болуы мүмкін. Ойыншыларды алдау ережемен тыйым салынған [4.1]. Шағымды лаунчердегі кейіпкер таңдау мәзірінің шағымдар бөлімінде беріп, ойыншының никін, 01-серверді, оқиға уақытын және скриншот не видео дәлелін қосыңыз [Как подать жалобу на игрока].\n\n4.1: https://support.grnd.gg/ru/articles/12974300-iv-%D0%BF%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0-%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%B8%D0%B3%D1%80%D0%BE%D0%B2%D1%8B%D0%BC%D0%B8-%D0%B0%D0%BA%D0%BA%D0%B0%D1%83%D0%BD%D1%82%D0%B0%D0%BC%D0%B8-%D0%B8-%D0%BF%D0%B5%D1%80%D1%81%D0%BE%D0%BD%D0%B0%D0%B6%D0%B0%D0%BC%D0%B8\nКак подать жалобу на игрока: https://support.grnd.gg/ru/articles/11071809-%D0%BA%D0%B0%D0%BA-%D0%BF%D0%BE%D0%B4%D0%B0%D1%82%D1%8C-%D0%B6%D0%B0%D0%BB%D0%BE%D0%B1%D1%83-%D0%BD%D0%B0-%D0%BD%D0%B0%D1%80%D1%83%D1%88%D0%B5%D0%BD%D0%B8%D0%B5-%D0%BF%D1%80%D0%B0%D0%B2%D0%B8%D0%BB-%D0%B4%D1%80%D1%83%D0%B3%D0%B8%D0%BC-%D0%B8%D0%B3%D1%80%D0%BE%D0%BA%D0%BE%D0%BC",
+        "citations": [
+          {
+            "id": "gm-4.1",
+            "clause": "4.1",
+            "title": "Мошенничество и оборот аккаунтов",
+            "url": "https://support.grnd.gg/ru/articles/12974300-iv-%D0%BF%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0-%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%B8%D0%B3%D1%80%D0%BE%D0%B2%D1%8B%D0%BC%D0%B8-%D0%B0%D0%BA%D0%BA%D0%B0%D1%83%D0%BD%D1%82%D0%B0%D0%BC%D0%B8-%D0%B8-%D0%BF%D0%B5%D1%80%D1%81%D0%BE%D0%BD%D0%B0%D0%B6%D0%B0%D0%BC%D0%B8",
+            "version": "2026-06-28"
+          },
+          {
+            "id": "gm-help-11071809",
+            "clause": "",
+            "title": "Как подать жалобу на игрока",
+            "url": "https://support.grnd.gg/ru/articles/11071809-%D0%BA%D0%B0%D0%BA-%D0%BF%D0%BE%D0%B4%D0%B0%D1%82%D1%8C-%D0%B6%D0%B0%D0%BB%D0%BE%D0%B1%D1%83-%D0%BD%D0%B0-%D0%BD%D0%B0%D1%80%D1%83%D1%88%D0%B5%D0%BD%D0%B8%D0%B5-%D0%BF%D1%80%D0%B0%D0%B2%D0%B8%D0%BB-%D0%B4%D1%80%D1%83%D0%B3%D0%B8%D0%BC-%D0%B8%D0%B3%D1%80%D0%BE%D0%BA%D0%BE%D0%BC",
+            "version": "2025-04-11"
+          }
+        ],
+        "telemetry": {
+          "attempt_id": "fdafae038818422e9e33d8fed0c11e0a",
+          "run_id": "0eb25dbb49914b3d8592661510578824",
+          "provider": "openai",
+          "model": "gpt-6-luna",
+          "prompt_version": "triage-3.1",
+          "corpus_version": "fd668da3ceb3de26",
+          "usage": {
+            "input_tokens": 2667,
+            "input_tokens_details": {
+              "cache_write_tokens": 2664,
+              "cached_tokens": 0
+            },
+            "output_tokens": 478,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 3145
+          },
+          "cost_usd": 0.0005723,
+          "pricing": "openai-standard-2026-10-30",
+          "rates_usd_per_million": {
+            "input": 0.1,
+            "cached_input": 0.01,
+            "output": 0.5,
+            "cache_write": 0.125,
+            "source": "openai-standard-2026-10-30",
+            "cache_write_ttl": "30m",
+            "unit": "USD per 1M tokens"
+          },
+          "llm_latency_ms": 5805,
+          "reasoning_effort": "low",
+          "response_model": "gpt-6-luna",
+          "latency_ms": 5810
+        },
+        "error": null
+      }
+    },
+    {
+      "id": "trade-ru",
+      "expected": {
+        "id": "trade-ru",
+        "category": "player",
+        "language": "ru",
+        "needs_human": true
+      },
+      "prediction": {
+        "schema_version": "1.0",
+        "id": "trade-ru",
+        "status": "ok",
+        "language": "ru",
+        "category": "player",
+        "intent": "complaint",
+        "summary": "Игрок утверждает, что Max_Freeman забрал его машину при обмене и вышел из игры. Указаны сервер 01 и время — сегодня в 18:30; просит проверить сделку.",
+        "claims": [
+          "Max_Freeman забрал машину игрока при обмене и вышел из игры.",
+          "Событие произошло на сервере 01 сегодня в 18:30."
+        ],
+        "missing_fields": [
+          "Ник персонажа заявителя.",
+          "Скриншоты или видеодоказательство обмена и выхода игрока."
+        ],
+        "needs_human": true,
+        "human_reasons": [
+          "Требуется проверка сделки и действий другого игрока; это требует рассмотрения человеком.",
+          "Для подачи жалобы на игрока рекомендуются ник нарушителя, описание, место и время, а также доказательства.",
+          "Обстоятельства обращения должен проверить сотрудник",
+          "Нужны проверка данных или персональные действия сотрудника",
+          "Не хватает сведений для полного ответа",
+          "Черновик требует проверки сотрудником"
+        ],
+        "draft": "Понимаем, что вы сообщаете о возможном мошенничестве при обмене. По правилам запрещено мошенничество в отношении игроков [4.1]. Чтобы оформить жалобу, в лаунчере откройте раздел жалоб и укажите ник персонажа, место, время и приложите скриншоты или видеоссылку; без доказательств жалобу могут отклонить [Как подать жалобу на игрока]. Укажите также ваш ник персонажа и приложите имеющиеся доказательства — для проверки потребуется рассмотрение человеком.\n\n4.1: https://support.grnd.gg/ru/articles/12974300-iv-%D0%BF%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0-%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%B8%D0%B3%D1%80%D0%BE%D0%B2%D1%8B%D0%BC%D0%B8-%D0%B0%D0%BA%D0%BA%D0%B0%D1%83%D0%BD%D1%82%D0%B0%D0%BC%D0%B8-%D0%B8-%D0%BF%D0%B5%D1%80%D1%81%D0%BE%D0%BD%D0%B0%D0%B6%D0%B0%D0%BC%D0%B8\nКак подать жалобу на игрока: https://support.grnd.gg/ru/articles/11071809-%D0%BA%D0%B0%D0%BA-%D0%BF%D0%BE%D0%B4%D0%B0%D1%82%D1%8C-%D0%B6%D0%B0%D0%BB%D0%BE%D0%B1%D1%83-%D0%BD%D0%B0-%D0%BD%D0%B0%D1%80%D1%83%D1%88%D0%B5%D0%BD%D0%B8%D0%B5-%D0%BF%D1%80%D0%B0%D0%B2%D0%B8%D0%BB-%D0%B4%D1%80%D1%83%D0%B3%D0%B8%D0%BC-%D0%B8%D0%B3%D1%80%D0%BE%D0%BA%D0%BE%D0%BC",
+        "citations": [
+          {
+            "id": "gm-4.1",
+            "clause": "4.1",
+            "title": "Мошенничество и оборот аккаунтов",
+            "url": "https://support.grnd.gg/ru/articles/12974300-iv-%D0%BF%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0-%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%B8%D0%B3%D1%80%D0%BE%D0%B2%D1%8B%D0%BC%D0%B8-%D0%B0%D0%BA%D0%BA%D0%B0%D1%83%D0%BD%D1%82%D0%B0%D0%BC%D0%B8-%D0%B8-%D0%BF%D0%B5%D1%80%D1%81%D0%BE%D0%BD%D0%B0%D0%B6%D0%B0%D0%BC%D0%B8",
+            "version": "2026-06-28"
+          },
+          {
+            "id": "gm-help-11071809",
+            "clause": "",
+            "title": "Как подать жалобу на игрока",
+            "url": "https://support.grnd.gg/ru/articles/11071809-%D0%BA%D0%B0%D0%BA-%D0%BF%D0%BE%D0%B4%D0%B0%D1%82%D1%8C-%D0%B6%D0%B0%D0%BB%D0%BE%D0%B1%D1%83-%D0%BD%D0%B0-%D0%BD%D0%B0%D1%80%D1%83%D1%88%D0%B5%D0%BD%D0%B8%D0%B5-%D0%BF%D1%80%D0%B0%D0%B2%D0%B8%D0%BB-%D0%B4%D1%80%D1%83%D0%B3%D0%B8%D0%BC-%D0%B8%D0%B3%D1%80%D0%BE%D0%BA%D0%BE%D0%BC",
+            "version": "2025-04-11"
+          }
+        ],
+        "telemetry": {
+          "attempt_id": "e718dfb8deb74167a9fbad0fefcfbb34",
+          "run_id": "0eb25dbb49914b3d8592661510578824",
+          "provider": "openai",
+          "model": "gpt-6-luna",
+          "prompt_version": "triage-3.1",
+          "corpus_version": "fd668da3ceb3de26",
+          "usage": {
+            "input_tokens": 2656,
+            "input_tokens_details": {
+              "cache_write_tokens": 2653,
+              "cached_tokens": 0
+            },
+            "output_tokens": 338,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 2994
+          },
+          "cost_usd": 0.000500925,
+          "pricing": "openai-standard-2026-10-30",
+          "rates_usd_per_million": {
+            "input": 0.1,
+            "cached_input": 0.01,
+            "output": 0.5,
+            "cache_write": 0.125,
+            "source": "openai-standard-2026-10-30",
+            "cache_write_ttl": "30m",
+            "unit": "USD per 1M tokens"
+          },
+          "llm_latency_ms": 5321,
+          "reasoning_effort": "low",
+          "response_model": "gpt-6-luna",
+          "latency_ms": 5333
+        },
+        "error": null
+      }
+    },
+    {
+      "id": "trade-uz",
+      "expected": {
+        "id": "trade-uz",
+        "category": "player",
+        "language": "uz",
+        "needs_human": true
+      },
+      "prediction": {
+        "schema_version": "1.0",
+        "id": "trade-uz",
+        "status": "ok",
+        "language": "uz",
+        "category": "player",
+        "intent": "complaint",
+        "summary": "Игрок утверждает, что Max_Freeman забрал его автомобиль при обмене и вышел из игры. Указаны сервер 01 и время — сегодня в 18:30; просит проверить сделку.",
+        "claims": [
+          "Max_Freeman забрал автомобиль игрока во время обмена и вышел из игры.",
+          "Событие произошло на сервере 01 сегодня в 18:30."
+        ],
+        "missing_fields": [
+          "Никнейм персонажа заявителя.",
+          "Подтверждающие материалы или сведения, по которым можно найти эпизод; доказательства в жалобе могут быть необходимы."
+        ],
+        "needs_human": true,
+        "human_reasons": [
+          "Это персональная жалоба на предполагаемое мошенничество; требуется проверка обстоятельств человеком.",
+          "Для рассмотрения жалобы нужно обратиться в раздел жалоб лаунчера и указать ник другого игрока, что произошло, место и время; без доказательств жалобу могут отклонить.",
+          "Обстоятельства обращения должен проверить сотрудник",
+          "Нужны проверка данных или персональные действия сотрудника",
+          "Не хватает сведений для полного ответа",
+          "Черновик требует проверки сотрудником"
+        ],
+        "draft": "Agar Max_Freeman almashuv paytida avtomobilingizni olib ketgan bo‘lsa, bu boshqa o‘yinchiga nisbatan firibgarlik bo‘lishi mumkin va qoidalarda taqiqlangan [4.1]. Bunday holatni tekshirtirish uchun launcherda personaj tanlash menyusidagi shikoyatlar bo‘limida shikoyat yarating; Max_Freeman nikini, 01-serverni, bugun 18:30 dagi voqeani va mavjud skrinshot yoki video havolasini kiriting [Как подать жалобу на игрока]. Shikoyatingizni ko‘rib chiqish uchun personajingiz nikini hamda mavjud dalillarni yuboring.\n\n4.1: https://support.grnd.gg/ru/articles/12974300-iv-%D0%BF%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0-%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%B8%D0%B3%D1%80%D0%BE%D0%B2%D1%8B%D0%BC%D0%B8-%D0%B0%D0%BA%D0%BA%D0%B0%D1%83%D0%BD%D1%82%D0%B0%D0%BC%D0%B8-%D0%B8-%D0%BF%D0%B5%D1%80%D1%81%D0%BE%D0%BD%D0%B0%D0%B6%D0%B0%D0%BC%D0%B8\nКак подать жалобу на игрока: https://support.grnd.gg/ru/articles/11071809-%D0%BA%D0%B0%D0%BA-%D0%BF%D0%BE%D0%B4%D0%B0%D1%82%D1%8C-%D0%B6%D0%B0%D0%BB%D0%BE%D0%B1%D1%83-%D0%BD%D0%B0-%D0%BD%D0%B0%D1%80%D1%83%D1%88%D0%B5%D0%BD%D0%B8%D0%B5-%D0%BF%D1%80%D0%B0%D0%B2%D0%B8%D0%BB-%D0%B4%D1%80%D1%83%D0%B3%D0%B8%D0%BC-%D0%B8%D0%B3%D1%80%D0%BE%D0%BA%D0%BE%D0%BC",
+        "citations": [
+          {
+            "id": "gm-4.1",
+            "clause": "4.1",
+            "title": "Мошенничество и оборот аккаунтов",
+            "url": "https://support.grnd.gg/ru/articles/12974300-iv-%D0%BF%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0-%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%B8%D0%B3%D1%80%D0%BE%D0%B2%D1%8B%D0%BC%D0%B8-%D0%B0%D0%BA%D0%BA%D0%B0%D1%83%D0%BD%D1%82%D0%B0%D0%BC%D0%B8-%D0%B8-%D0%BF%D0%B5%D1%80%D1%81%D0%BE%D0%BD%D0%B0%D0%B6%D0%B0%D0%BC%D0%B8",
+            "version": "2026-06-28"
+          },
+          {
+            "id": "gm-help-11071809",
+            "clause": "",
+            "title": "Как подать жалобу на игрока",
+            "url": "https://support.grnd.gg/ru/articles/11071809-%D0%BA%D0%B0%D0%BA-%D0%BF%D0%BE%D0%B4%D0%B0%D1%82%D1%8C-%D0%B6%D0%B0%D0%BB%D0%BE%D0%B1%D1%83-%D0%BD%D0%B0-%D0%BD%D0%B0%D1%80%D1%83%D1%88%D0%B5%D0%BD%D0%B8%D0%B5-%D0%BF%D1%80%D0%B0%D0%B2%D0%B8%D0%BB-%D0%B4%D1%80%D1%83%D0%B3%D0%B8%D0%BC-%D0%B8%D0%B3%D1%80%D0%BE%D0%BA%D0%BE%D0%BC",
+            "version": "2025-04-11"
+          }
+        ],
+        "telemetry": {
+          "attempt_id": "9706c0d599a14e04a6cdf4ff3bb4585f",
+          "run_id": "0eb25dbb49914b3d8592661510578824",
+          "provider": "openai",
+          "model": "gpt-6-luna",
+          "prompt_version": "triage-3.1",
+          "corpus_version": "fd668da3ceb3de26",
+          "usage": {
+            "input_tokens": 2661,
+            "input_tokens_details": {
+              "cache_write_tokens": 2658,
+              "cached_tokens": 0
+            },
+            "output_tokens": 412,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 3073
+          },
+          "cost_usd": 0.00053855,
+          "pricing": "openai-standard-2026-10-30",
+          "rates_usd_per_million": {
+            "input": 0.1,
+            "cached_input": 0.01,
+            "output": 0.5,
+            "cache_write": 0.125,
+            "source": "openai-standard-2026-10-30",
+            "cache_write_ttl": "30m",
+            "unit": "USD per 1M tokens"
+          },
+          "llm_latency_ms": 4705,
+          "reasoning_effort": "low",
+          "response_model": "gpt-6-luna",
+          "latency_ms": 4708
+        },
+        "error": null
+      }
+    },
+    {
+      "id": "rp-kk",
+      "expected": {
+        "id": "rp-kk",
+        "category": "other",
+        "language": "kk",
+        "needs_human": false,
+        "rule_ids": [
+          "gm-rp"
+        ]
+      },
+      "prediction": {
+        "schema_version": "1.0",
+        "id": "rp-kk",
+        "status": "ok",
+        "language": "kk",
+        "category": "other",
+        "intent": "faq",
+        "summary": "Ойыншы Grand Mobile ойынында RP нені білдіретінін сұрайды.",
+        "claims": [
+          "Ойыншы RP терминінің мағынасын сұрайды."
+        ],
+        "missing_fields": [],
+        "needs_human": false,
+        "human_reasons": [],
+        "draft": "RP (RolePlay) — рөлдік ойын: ойыншы ойдан шығарылған кейіпкердің рөлінде әрекет етеді [RP].\n\nRP: https://support.grnd.gg/ru/articles/12974307-vi-%D1%82%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B-%D0%B8-%D0%B8%D1%85-%D0%BE%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5",
+        "citations": [
+          {
+            "id": "gm-rp",
+            "clause": "RP",
+            "title": "RolePlay",
+            "url": "https://support.grnd.gg/ru/articles/12974307-vi-%D1%82%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B-%D0%B8-%D0%B8%D1%85-%D0%BE%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5",
+            "version": "2026-06-28"
+          }
+        ],
+        "telemetry": {
+          "attempt_id": "ccfc6845d20f43d3bb335dd7b62801cc",
+          "run_id": "0eb25dbb49914b3d8592661510578824",
+          "provider": "openai",
+          "model": "gpt-6-luna",
+          "prompt_version": "triage-3.1",
+          "corpus_version": "fd668da3ceb3de26",
+          "usage": {
+            "input_tokens": 2629,
+            "input_tokens_details": {
+              "cache_write_tokens": 2626,
+              "cached_tokens": 0
+            },
+            "output_tokens": 130,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 2759
+          },
+          "cost_usd": 0.00039355,
+          "pricing": "openai-standard-2026-10-30",
+          "rates_usd_per_million": {
+            "input": 0.1,
+            "cached_input": 0.01,
+            "output": 0.5,
+            "cache_write": 0.125,
+            "source": "openai-standard-2026-10-30",
+            "cache_write_ttl": "30m",
+            "unit": "USD per 1M tokens"
+          },
+          "llm_latency_ms": 2007,
+          "reasoning_effort": "low",
+          "response_model": "gpt-6-luna",
+          "latency_ms": 2010
+        },
+        "error": null
+      }
+    },
+    {
+      "id": "rp-ru",
+      "expected": {
+        "id": "rp-ru",
+        "category": "other",
+        "language": "ru",
+        "needs_human": false,
+        "rule_ids": [
+          "gm-rp"
+        ]
+      },
+      "prediction": {
+        "schema_version": "1.0",
+        "id": "rp-ru",
+        "status": "ok",
+        "language": "ru",
+        "category": "other",
+        "intent": "faq",
+        "summary": "Игрок спрашивает, что означает RP в Grand Mobile.",
+        "claims": [],
+        "missing_fields": [],
+        "needs_human": false,
+        "human_reasons": [],
+        "draft": "RP (RolePlay) — это игра по ролям: игрок действует от лица придуманного персонажа [RP].\n\nRP: https://support.grnd.gg/ru/articles/12974307-vi-%D1%82%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B-%D0%B8-%D0%B8%D1%85-%D0%BE%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5",
+        "citations": [
+          {
+            "id": "gm-rp",
+            "clause": "RP",
+            "title": "RolePlay",
+            "url": "https://support.grnd.gg/ru/articles/12974307-vi-%D1%82%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B-%D0%B8-%D0%B8%D1%85-%D0%BE%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5",
+            "version": "2026-06-28"
+          }
+        ],
+        "telemetry": {
+          "attempt_id": "d19c119eb1954418b3dac59f23c3ebe8",
+          "run_id": "0eb25dbb49914b3d8592661510578824",
+          "provider": "openai",
+          "model": "gpt-6-luna",
+          "prompt_version": "triage-3.1",
+          "corpus_version": "fd668da3ceb3de26",
+          "usage": {
+            "input_tokens": 2625,
+            "input_tokens_details": {
+              "cache_write_tokens": 2622,
+              "cached_tokens": 0
+            },
+            "output_tokens": 103,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 2728
+          },
+          "cost_usd": 0.00037955,
+          "pricing": "openai-standard-2026-10-30",
+          "rates_usd_per_million": {
+            "input": 0.1,
+            "cached_input": 0.01,
+            "output": 0.5,
+            "cache_write": 0.125,
+            "source": "openai-standard-2026-10-30",
+            "cache_write_ttl": "30m",
+            "unit": "USD per 1M tokens"
+          },
+          "llm_latency_ms": 3167,
+          "reasoning_effort": "low",
+          "response_model": "gpt-6-luna",
+          "latency_ms": 3170
+        },
+        "error": null
+      }
+    },
+    {
+      "id": "rp-uz",
+      "expected": {
+        "id": "rp-uz",
+        "category": "other",
+        "language": "uz",
+        "needs_human": false,
+        "rule_ids": [
+          "gm-rp"
+        ]
+      },
+      "prediction": {
+        "schema_version": "1.0",
+        "id": "rp-uz",
+        "status": "ok",
+        "language": "uz",
+        "category": "other",
+        "intent": "faq",
+        "summary": "Игрок спрашивает, что означает RP в Grand Mobile.",
+        "claims": [
+          "Просит объяснить значение RP в игре."
+        ],
+        "missing_fields": [],
+        "needs_human": false,
+        "human_reasons": [],
+        "draft": "Grand Mobile’da RP — bu RolePlay, ya’ni o‘ylab topilgan personaj rolida o‘ynash [RP].\n\nRP: https://support.grnd.gg/ru/articles/12974307-vi-%D1%82%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B-%D0%B8-%D0%B8%D1%85-%D0%BE%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5",
+        "citations": [
+          {
+            "id": "gm-rp",
+            "clause": "RP",
+            "title": "RolePlay",
+            "url": "https://support.grnd.gg/ru/articles/12974307-vi-%D1%82%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B-%D0%B8-%D0%B8%D1%85-%D0%BE%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5",
+            "version": "2026-06-28"
+          }
+        ],
+        "telemetry": {
+          "attempt_id": "657a102cf9244fa9a8b737cd5a19182d",
+          "run_id": "0eb25dbb49914b3d8592661510578824",
+          "provider": "openai",
+          "model": "gpt-6-luna",
+          "prompt_version": "triage-3.1",
+          "corpus_version": "fd668da3ceb3de26",
+          "usage": {
+            "input_tokens": 2631,
+            "input_tokens_details": {
+              "cache_write_tokens": 2628,
+              "cached_tokens": 0
+            },
+            "output_tokens": 117,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 2748
+          },
+          "cost_usd": 0.0003873,
+          "pricing": "openai-standard-2026-10-30",
+          "rates_usd_per_million": {
+            "input": 0.1,
+            "cached_input": 0.01,
+            "output": 0.5,
+            "cache_write": 0.125,
+            "source": "openai-standard-2026-10-30",
+            "cache_write_ttl": "30m",
+            "unit": "USD per 1M tokens"
+          },
+          "llm_latency_ms": 3109,
+          "reasoning_effort": "low",
+          "response_model": "gpt-6-luna",
+          "latency_ms": 3112
+        },
+        "error": null
+      }
+    },
+    {
+      "id": "nonsense-ru",
+      "expected": {
+        "id": "nonsense-ru",
+        "category": "other",
+        "language": "ru",
+        "needs_human": false,
+        "rule_ids": []
+      },
+      "prediction": {
+        "schema_version": "1.0",
+        "id": "nonsense-ru",
+        "status": "error",
+        "language": "ru",
+        "category": "other",
+        "intent": "complaint",
+        "summary": "Если мой кот станет мэром виртуального города, он будет платить зарплату рыбкой? Это шутка.",
+        "claims": [
+          "Если мой кот станет мэром виртуального города, он будет платить зарплату рыбкой? Это шутка."
+        ],
+        "missing_fields": [],
+        "needs_human": true,
+        "human_reasons": [
+          "Автоматический разбор не завершён: требуется сотрудник"
+        ],
+        "draft": "Здравствуйте! Для этого обращения нужна проверка сотрудником. Опишите, что произошло, и при необходимости укажите сервер, ник и время события. Не отправляйте пароль или коды входа.",
+        "citations": [],
+        "telemetry": {
+          "attempt_id": "1d691548a8224562a4d2b246b1599f77",
+          "run_id": "0eb25dbb49914b3d8592661510578824",
+          "provider": "openai",
+          "model": "gpt-6-luna",
+          "prompt_version": "triage-3.1",
+          "corpus_version": "fd668da3ceb3de26",
+          "usage": null,
+          "cost_usd": null,
+          "pricing": "unknown_usage",
+          "rates_usd_per_million": {
+            "input": 0.1,
+            "cached_input": 0.01,
+            "output": 0.5,
+            "cache_write": 0.125,
+            "source": "openai-standard-2026-10-30",
+            "cache_write_ttl": "30m",
+            "unit": "USD per 1M tokens"
+          },
+          "llm_latency_ms": 1855,
+          "reasoning_effort": "low",
+          "provider_error": {
+            "type": "requests",
+            "code": "rate_limit_exceeded",
+            "param": null
+          },
+          "latency_ms": 1858
+        },
+        "error": "provider_http_429"
+      }
+    },
+    {
+      "id": "nonsense-kk",
+      "expected": {
+        "id": "nonsense-kk",
+        "category": "other",
+        "language": "kk",
+        "needs_human": false,
+        "rule_ids": []
+      },
+      "prediction": {
+        "schema_version": "1.0",
+        "id": "nonsense-kk",
+        "status": "error",
+        "language": "kk",
+        "category": "other",
+        "intent": "complaint",
+        "summary": "Егер мысығым виртуалды қаланың әкімі болса, жалақыны балықпен төлей ме? Бұл әзіл.",
+        "claims": [
+          "Егер мысығым виртуалды қаланың әкімі болса, жалақыны балықпен төлей ме? Бұл әзіл."
+        ],
+        "missing_fields": [],
+        "needs_human": true,
+        "human_reasons": [
+          "Автоматический разбор не завершён: требуется сотрудник"
+        ],
+        "draft": "Сәлеметсіз бе! Бұл өтінішті қолдау қызметінің маманы тексеруі қажет. Не болғанын сипаттап, қажет болса, серверді, кейіпкер атын және оқиға уақытын көрсетіңіз. Құпиясөзді немесе кіру кодтарын жібермеңіз.",
+        "citations": [],
+        "telemetry": {
+          "attempt_id": "928af898ad8f485a98acfaa0271f7750",
+          "run_id": "0eb25dbb49914b3d8592661510578824",
+          "provider": "openai",
+          "model": "gpt-6-luna",
+          "prompt_version": "triage-3.1",
+          "corpus_version": "fd668da3ceb3de26",
+          "usage": null,
+          "cost_usd": null,
+          "pricing": "unknown_usage",
+          "rates_usd_per_million": {
+            "input": 0.1,
+            "cached_input": 0.01,
+            "output": 0.5,
+            "cache_write": 0.125,
+            "source": "openai-standard-2026-10-30",
+            "cache_write_ttl": "30m",
+            "unit": "USD per 1M tokens"
+          },
+          "llm_latency_ms": 1382,
+          "reasoning_effort": "low",
+          "provider_error": {
+            "type": "requests",
+            "code": "rate_limit_exceeded",
+            "param": null
+          },
+          "latency_ms": 1385
+        },
+        "error": "provider_http_429"
+      }
+    },
+    {
+      "id": "unknown-gameplay-ru",
+      "expected": {
+        "id": "unknown-gameplay-ru",
+        "category": "other",
+        "language": "ru",
+        "needs_human": true,
+        "rule_ids": []
+      },
+      "prediction": {
+        "schema_version": "1.0",
+        "id": "unknown-gameplay-ru",
+        "status": "error",
+        "language": "ru",
+        "category": "other",
+        "intent": "complaint",
+        "summary": "Какая работа в игре сейчас приносит больше всего денег за час? Нужны точные суммы после последнего обновления.",
+        "claims": [
+          "Какая работа в игре сейчас приносит больше всего денег за час? Нужны точные суммы после последнего обновления."
+        ],
+        "missing_fields": [],
+        "needs_human": true,
+        "human_reasons": [
+          "Автоматический разбор не завершён: требуется сотрудник"
+        ],
+        "draft": "Здравствуйте! Для этого обращения нужна проверка сотрудником. Опишите, что произошло, и при необходимости укажите сервер, ник и время события. Не отправляйте пароль или коды входа.",
+        "citations": [],
+        "telemetry": {
+          "attempt_id": "eb3697a7b66b41d582b8ec97b5b30039",
+          "run_id": "0eb25dbb49914b3d8592661510578824",
+          "provider": "openai",
+          "model": "gpt-6-luna",
+          "prompt_version": "triage-3.1",
+          "corpus_version": "fd668da3ceb3de26",
+          "usage": null,
+          "cost_usd": null,
+          "pricing": "unknown_usage",
+          "rates_usd_per_million": {
+            "input": 0.1,
+            "cached_input": 0.01,
+            "output": 0.5,
+            "cache_write": 0.125,
+            "source": "openai-standard-2026-10-30",
+            "cache_write_ttl": "30m",
+            "unit": "USD per 1M tokens"
+          },
+          "llm_latency_ms": 1417,
+          "reasoning_effort": "low",
+          "provider_error": {
+            "type": "requests",
+            "code": "rate_limit_exceeded",
+            "param": null
+          },
+          "latency_ms": 1422
+        },
+        "error": "provider_http_429"
+      }
+    }
+  ],
+  "limitations": [
+    "Synthetic data is a development check, not an organizer or production benchmark.",
+    "Existing source IDs do not prove semantic support; grounding requires manual review.",
+    "Latency measures processing, excludes CRM queue wait; costs are token-price estimates, not invoices.",
+    "Offline results do not measure LLM quality; mixed model/prompt/corpus runs must be interpreted separately."
+  ]
+}

@@ -3,13 +3,15 @@
 import re
 from sqlalchemy import select
 from .config import settings
-from .models import Attachment, Message, Player, Rule
+from .models import Attachment, Message, Player, Profile
+from .knowledge import active_crm_rules
 
 # Defense in depth alongside the structured model classification. Mixed requests escalate.
 SENSITIVE = re.compile(
     r"бан|заблок|разбан|обман|мошенн|взлом|парол|плат[её]ж|оплат|деньг|донат|"
     r"возврат|жалоб|администратор|оператор|сотрудник|оскорб|угроз|читер|списал|пропал|"
-    r"\b(ban|banned|appeal|refund|payment|password|hacked|scam|threat|complaint|charged|human|agent)\b",
+    r"\b(ban|banned|appeal|refund|payment|password|hacked|scam|threat|complaint|charged|human|agent)\b|"
+    r"шағым|бұғат|ақша|құпиясөз|төлем|қайтар|shikoyat|blokla|to['’ʻ]lov|parol|aldadi|qaytar|шикоят|блокла|тўлов|парол",
     re.IGNORECASE,
 )
 
@@ -49,11 +51,10 @@ def eligibility(db, ticket, result):
         return False, "Пустой ответ"
     if result["intent"] == "faq":
         keys = set(result.get("rule_ids", []))
-        approved = set(
-            db.scalars(
-                select(Rule.id).where(Rule.id.in_(keys), Rule.approved.is_(True))
-            )
-        )
+        profile = db.get(Profile, ticket.profile_id) if ticket.profile_id else None
+        approved = keys & {
+            r["id"] for r in active_crm_rules(db, profile.server if profile else "*")
+        }
         if not keys or approved != keys:
             return False, "Для ответа об игре нужен утверждённый источник"
     player = db.get(Player, ticket.player_id)

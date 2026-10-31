@@ -5,7 +5,8 @@
 Понадобятся Docker Compose и порт 8080. Команды выполняются из корня проекта.
 
 ```bash
-cp .env.example .env
+cp -n .env.example .env
+make import-handout HANDOUT=/путь/grand-support-copilot-handout-2026-10-27.tgz
 docker compose up --build -d
 docker compose exec api python -m app.cli create-staff --login admin --name "Администратор" --role admin
 docker compose exec api python -m app.cli seed-rules
@@ -54,7 +55,7 @@ docker compose --profile telegram up -d
 | Отменить создание | `/cancel` |
 | Мои обращения | `/tickets`, `/ticket 1` |
 | Дополнить обращение | `/reply 1 текст` |
-| Язык ответа | `/language ru`, `/language en` |
+| Язык ответа | `/language auto`, `/language ru`, `/language en`, `/language kk`, `/language uz` |
 | Справка | `/help` |
 
 Игровой ник не подтверждает владение аккаунтом. Полноценная проверка требует API или одноразового кода из игры; пароли бот не запрашивает. Жалобу о потере доступа можно подать без персонажа. В апелляции можно указать свою предыдущую жалобу.
@@ -69,7 +70,7 @@ docker compose --profile telegram up -d
 
 Все вопросы, разборы, автоответы и результаты доставки сохраняются. В CRM автор автоответа отмечен как `Support Copilot`. Флаг `AUTO_REPLY_ENABLED=false` отключает самостоятельную отправку. В режиме `offline` LLM не вызывается и автоответов нет — отображаются исходный текст и шаблон для сотрудника.
 
-Команда `seed-rules` добавляет три справочные статьи в статусе «на проверке». Это пересказы официальных материалов о жалобах и апелляциях, без полного регламента наказаний. Проверьте и утвердите их в «Базе правил», добавьте реальные игровые FAQ и актуальные правила нужных серверов. Старую редакцию снимайте с публикации перед утверждением новой. Retrieval MVP использует совпадения слов; оцените его на обезличенной выборке до запуска.
+Команда `seed-rules` добавляет пункты из импортированного handout в редактор CRM. Движок использует read-only корпус handout и локальный поиск релевантных источников. Одинаковые номера различаются по разделам. Подробности сдачи и метрик — в [hackathon.md](hackathon.md).
 
 Документация: [OpenAI structured outputs](https://developers.openai.com/api/docs/guides/structured-outputs?api-mode=responses), [Telegram Bot API](https://core.telegram.org/bots/api).
 
@@ -129,3 +130,11 @@ docker compose exec -T db pg_restore -U copilot -d copilot_restore_check --no-ow
 Храните копии вне сервера с ограничением доступа. Остановка: `docker compose --profile telegram down` сохраняет volume. Не добавляйте `-v`, если нужно сохранить жалобы.
 
 До публичного запуска задайте `ENVIRONMENT=production`, `COOKIE_SECURE=true`, `PUBLIC_ORIGIN=https://ваш-домен`, `DEMO_ENABLED=false`, настройте TLS reverse proxy, секреты, мониторинг и сроки хранения данных. Смена `POSTGRES_PASSWORD` в `.env` сама по себе не меняет пароль в уже созданном volume. Для неинтерактивного создания сотрудника CLI поддерживает `COPILOT_STAFF_PASSWORD` через окружение.
+
+## Triage и оценка
+
+Добавлены `POST /triage` и `make predict IN=tickets.jsonl OUT=pred.jsonl`. [Контракт организаторов](triage-contract.md), [прогон и метрики](hackathon.md). Перед обновлением нативного запуска примените миграции. В production задайте отдельный `TRIAGE_API_KEY`; клиент triage передаёт его как Bearer-токен.
+
+Новые Telegram-профили используют `language=auto`: язык ответа определяется по тексту игрока независимо от языка интерфейса Telegram. Явный выбор через `/language` сохраняется; `/language auto` возвращает автоматическое определение. Для существующих профилей прежнее предпочтение сохраняется до смены команды.
+
+Для сброса забытого пароля: `docker compose exec api python -m app.cli reset-password --login admin`. Новый пароль вводится интерактивно, существующие сессии отзываются.

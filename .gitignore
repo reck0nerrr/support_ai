@@ -1,4 +1,6 @@
 .env
+private/
+pred.jsonl
 .venv/
 __pycache__/
 .pytest_cache/

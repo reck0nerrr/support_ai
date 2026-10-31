@@ -18,9 +18,22 @@ from .models import (
     Rule,
     Staff,
     Ticket,
+    TriageRun,
+    EvaluationRun,
     now,
 )
-from .schemas import DemoIn, LoginIn, MessageIn, RuleIn, TicketPatch
+from .schemas import (
+    DemoIn,
+    LoginIn,
+    MessageIn,
+    RuleIn,
+    TicketPatch,
+    EvaluationIn,
+)
+from .triage import run_triage, record_run
+from .contract import ContractRequest, ContractResponse
+from .dedup import recent_duplicate
+from .evaluation import evaluate, runtime_summary
 from .security import (
     COOKIE,
     DUMMY_PASSWORD_HASH,
@@ -42,7 +55,7 @@ from .services import (
 )
 from .telegram import handle_update
 
-app = FastAPI(title="Grand Mobile Support Copilot", version="0.1.0")
+app = FastAPI(title="Grand Mobile Support Copilot", version="0.2.0")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[settings().public_origin],
@@ -58,9 +71,180 @@ async def security_headers(request, call_next):
     response.headers["X-Content-Type-Options"] = "nosniff"
     response.headers["Referrer-Policy"] = "same-origin"
     response.headers["X-Frame-Options"] = "DENY"
-    if request.url.path.startswith("/api"):
+    if request.url.path.startswith("/api") or request.url.path == "/triage":
         response.headers["Cache-Control"] = "no-store"
     return response
+
+
+@app.post(
+    "/triage",
+    response_model=ContractResponse,
+    responses={502: {"model": ContractResponse}},
+)
+def triage(
+    data: ContractRequest, request: Request, response: Response, db=Depends(get_db)
+):
+    key = settings().triage_api_key
+    if key and not hmac.compare_digest(
+        request.headers.get("authorization", ""), f"Bearer {key}"
+    ):
+        raise HTTPException(401, "Invalid triage API key")
+    duplicate = recent_duplicate(db, data)
+    db.rollback()
+    output = record_run(data, run_triage(data, duplicate=duplicate), source="http")
+    response.headers["X-Triage-Status"] = output.status
+    response.headers["X-Triage-Latency-Ms"] = str(output.telemetry["latency_ms"])
+    if output.telemetry["cost_usd"] is not None:
+        response.headers["X-Triage-Cost-Usd"] = str(output.telemetry["cost_usd"])
+    if output.error:
+        response.headers["X-Triage-Error"] = output.error
+    if output.status == "error":
+        response.status_code = 502
+    return output.public()
+
+
+@app.get("/api/metrics")
+def metrics(
+    provider: str = "openai",
+    source: str = "all",
+    language: str = "all",
+    run_id: str = "",
+    days: int = Query(7, ge=1, le=90),
+    staff=Depends(admin_staff),
+    db=Depends(get_db),
+):
+    if (
+        provider not in {"openai", "offline"}
+        or source not in {"all", "http", "batch", "crm"}
+        or language not in {"all", "ru", "en", "kk", "uz", "es", "pt"}
+        or len(run_id) > 80
+    ):
+        raise HTTPException(422, "Invalid metrics filter")
+    query = select(TriageRun).where(
+        TriageRun.provider == provider,
+        TriageRun.created_at >= now() - timedelta(days=days),
+    )
+    if source != "all":
+        query = query.where(TriageRun.source == source)
+    recent_ids = list(
+        db.scalars(query.with_only_columns(TriageRun.run_id).distinct().limit(100))
+    )
+    if run_id:
+        query = query.where(TriageRun.run_id == run_id)
+    rows = db.scalars(
+        query.order_by(TriageRun.created_at.desc(), TriageRun.id.desc()).limit(10001)
+    ).all()
+    truncated = len(rows) > 10000
+    rows = rows[:10000]
+    latest = {}
+    for row in rows:
+        latest.setdefault(row.request_key, row.output)
+    if language != "all":
+        latest = {k: v for k, v in latest.items() if v["language"] == language}
+        rows = [r for r in rows if r.request_key in latest]
+    requests = list(latest.values())
+    return {
+        "summary": runtime_summary(requests, attempts=[r.output for r in rows]),
+        "by_language": {
+            lang: runtime_summary(
+                [p for p in requests if p["language"] == lang],
+                attempts=[
+                    r.output for r in rows if latest[r.request_key]["language"] == lang
+                ],
+            )
+            for lang in sorted({p["language"] for p in requests})
+        },
+        "categories": {
+            category: sum(
+                p["category"] == category for p in requests if p["status"] == "ok"
+            )
+            for category in sorted(
+                {p["category"] for p in requests if p["status"] == "ok"}
+            )
+        },
+        "priorities": {
+            p: sum(r.get("priority") == p for r in requests if r["status"] == "ok")
+            for p in ("p0", "p1", "p2", "p3")
+        },
+        "duplicates_or_spam": sum(
+            r.get(
+                "is_spam_or_duplicate",
+                (r.get("contract") or {}).get("is_spam_or_duplicate", False),
+            )
+            for r in requests
+        ),
+        "recent_runs": recent_ids,
+        "days": days,
+        "truncated": truncated,
+        "generated_at": now(),
+        "recent": [
+            {
+                "id": r.id,
+                "created_at": r.created_at,
+                "source": r.source,
+                "external_id": r.output["id"],
+                "language": r.language,
+                "category": r.category,
+                "needs_human": r.needs_human,
+                "status": r.status,
+                "latency_ms": r.latency_ms,
+                "cost_usd": float(r.cost_usd) if r.cost_usd is not None else None,
+                "error": r.output.get("error"),
+            }
+            for r in rows[:12]
+        ],
+    }
+
+
+@app.get("/api/evaluations")
+def evaluations(staff=Depends(admin_staff), db=Depends(get_db)):
+    return [
+        {
+            "id": r.id,
+            "name": r.name,
+            "created_at": r.created_at,
+            "dataset_kind": r.report["dataset_kind"],
+            "n": r.report["counts"]["gold"],
+            "macro_f1": r.report["classification"]["macro_f1"],
+            "providers": r.report["runtime"]["providers"],
+        }
+        for r in db.scalars(
+            select(EvaluationRun).order_by(EvaluationRun.created_at.desc()).limit(100)
+        )
+    ]
+
+
+@app.get("/api/evaluations/{evaluation_id}")
+def evaluation_detail(
+    evaluation_id: str, staff=Depends(admin_staff), db=Depends(get_db)
+):
+    row = db.get(EvaluationRun, evaluation_id)
+    if not row:
+        raise HTTPException(404, "Evaluation not found")
+    return row.report
+
+
+@app.post("/api/evaluations")
+def create_evaluation(
+    data: EvaluationIn, staff=Depends(admin_staff), db=Depends(get_db)
+):
+    try:
+        report = evaluate(
+            data.gold,
+            data.predictions,
+            data.reviews,
+            name=data.name,
+            dataset_kind=data.dataset_kind,
+        )
+    except ValueError:
+        raise HTTPException(
+            422, "Проверьте уникальные id, разметку и формат файлов"
+        ) from None
+    row = EvaluationRun(name=data.name, report=report)
+    db.add(row)
+    audit(db, None, staff.name, "Рассчитана оценка: " + data.name)
+    db.commit()
+    return {"id": row.id, "report": report}
 
 
 @app.get("/api/health")

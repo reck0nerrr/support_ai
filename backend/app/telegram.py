@@ -20,7 +20,7 @@ HELP = (
     "/profile сервер | Nick_Name — добавить или выбрать персонажа (без проверки владения)\n"
     "/profiles — мои персонажи\n/new — новое обращение\n/tickets — мои обращения\n"
     "/ticket номер — история\n/reply номер текст — дополнить обращение\n"
-    "/language ru или en — язык ответа\n/cancel — отменить создание\n\n"
+    "/language auto / ru / en / kk / uz — язык ответа\n/cancel — отменить создание\n\n"
     "При потере аккаунта можно обратиться без привязки. Ник не подтверждает владение. Пароль от игры не нужен."
 )
 
@@ -79,7 +79,7 @@ def handle_update(db, update):
         player = Player(
             telegram_id=sender["id"],
             name=str(sender.get("first_name", "Игрок"))[:100],
-            language="en" if sender.get("language_code", "").startswith("en") else "ru",
+            language="auto",
         )
         db.add(player)
         db.flush()
@@ -101,11 +101,21 @@ def handle_update(db, update):
     if command in {"/start", "/help"}:
         tell(db, chat, HELP)
     elif command == "/language":
-        if argument not in {"ru", "en"}:
-            tell(db, chat, "/language ru или /language en")
+        if argument not in {"auto", "ru", "en", "kk", "uz"}:
+            tell(db, chat, "/language auto / ru / en / kk / uz")
         else:
             player.language = argument
-            tell(db, chat, "Язык ответа сохранён / Reply language saved.")
+            tell(
+                db,
+                chat,
+                {
+                    "auto": "Язык ответа будет определяться по тексту обращения.",
+                    "ru": "Язык ответа сохранён.",
+                    "en": "Reply language saved.",
+                    "kk": "Жауап тілі сақталды.",
+                    "uz": "Javob tili saqlandi.",
+                }[argument],
+            )
     elif command == "/profile":
         parts = [p.strip() for p in argument.split("|", 1)]
         if (
@@ -208,7 +218,16 @@ def handle_update(db, update):
                 player_message(
                     db, ticket, addition or "Дополнительные материалы", files
                 )
-                tell(db, chat, f"Дополнение к #{ticket.id} сохранено.")
+                tell(
+                    db,
+                    chat,
+                    f"Дополнение к #{ticket.id} сохранено."
+                    + (
+                        " Вложения доступны сотруднику в CRM. Их проверит человек; бот не анализирует фото."
+                        if files
+                        else ""
+                    ),
+                )
         else:
             from .models import Message
 
@@ -271,7 +290,7 @@ def handle_update(db, update):
         tell(
             db,
             chat,
-            "Пришлите скриншоты, документы или ссылки на видео. Затем /preview. Если материалов нет — /preview сразу.",
+            "Если есть доказательства, можете приложить скриншоты, документы или ссылку на видео: их проверит сотрудник. Это необязательно. /preview — проверить обращение.",
         )
     elif state.step == "evidence":
         if command == "/preview":
@@ -342,6 +361,12 @@ def handle_update(db, update):
                 intake="chat",
             )
         state.data = {"chat_ticket": ticket.id}
+        if files:
+            tell(
+                db,
+                chat,
+                f"Материалы к #{ticket.id} сохранены в CRM. Вложения проверит сотрудник поддержки; бот не анализирует фото.",
+            )
     else:
         tell(
             db,
