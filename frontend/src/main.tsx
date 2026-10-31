@@ -868,7 +868,7 @@ function TicketDetail({
                 requestKey.current = crypto.randomUUID();
               }}
               required
-              rows={4}
+              rows={3}
             />
             <div className="composer-footer">
               <span>{text.length} / 3 500</span>

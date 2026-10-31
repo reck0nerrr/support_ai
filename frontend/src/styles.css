@@ -862,7 +862,9 @@ label select {
   width: 100%;
   padding: 12px;
   font-size: 13px;
-  min-height: 106px;
+  height: 76px;
+  min-height: 64px;
+  max-height: 120px;
   border-radius: 0;
 }
 .composer-footer {
@@ -1608,7 +1610,7 @@ label select {
   }
   .composer > textarea {
     font-size: 14px;
-    min-height: 130px;
+    min-height: 76px;
   }
   .composer-footer {
     padding: 10px;
@@ -1763,8 +1765,8 @@ label select {
 /* Each work pane scrolls independently; the reply stays visible beside the AI review. */
 @media (min-width: 641px) {
   .sheet {
-    height: calc(100dvh - 88px);
-    min-height: 600px;
+    height: calc(100dvh - 64px);
+    min-height: 0;
   }
   .page-heading {
     flex-shrink: 0;
@@ -1799,11 +1801,12 @@ label select {
   }
   .conversation-column {
     min-height: 0;
-    overflow: hidden;
+    overflow-y: auto;
   }
   .conversation-content {
     overflow-y: auto;
-    min-height: 100px;
+    min-height: 0;
+    flex-basis: 0;
   }
   .player-strip,
   .tabs,
@@ -1825,7 +1828,7 @@ label select {
 }
 @media (min-width: 641px) and (max-width: 1100px) {
   .sheet {
-    height: calc(100dvh - 80px);
+    height: calc(100dvh - 64px);
   }
 }
 @media (max-width: 640px) {
